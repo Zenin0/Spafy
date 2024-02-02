@@ -1,4 +1,4 @@
-package com.isanz.proyectoam
+package com.isanz.spafy
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

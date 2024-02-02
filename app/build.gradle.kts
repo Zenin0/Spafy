@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.isanz.proyectoam"
+    namespace = "com.isanz.spafy"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.isanz.proyectoam"
+        applicationId = "com.isanz.spafy"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
