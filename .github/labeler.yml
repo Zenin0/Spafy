@@ -1,0 +1,21 @@
+#file: noinspection YAMLSchemaValidation
+
+login activity:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'src/Entity/*'
+
+security:
+    - any:
+        - changed-files:
+            - any-glob-to-any-file: 'SECURITY.md'
+
+
+license:
+    - any:
+        - changed-files:
+            - any-glob-to-any-file: 'LICENSE'
+readme:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'README.md'
