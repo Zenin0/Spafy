@@ -32,6 +32,11 @@ home module:
       - changed-files:
           - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/homeModule/*'
 
+layout:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'app/src/main/res/layout/*'
+
 
 library module:
   - any:
