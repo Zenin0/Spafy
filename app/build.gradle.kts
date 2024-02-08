@@ -21,8 +21,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -41,6 +40,8 @@ android {
 
 dependencies {
     val retrofitVersion = "2.9.0"
+    val coroutinesVersion = "1.7.3"
+    val lifecycleruntimektxVersion = "2.7.0"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -56,9 +57,12 @@ dependencies {
     // Gson (Retrofit)
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
-    val coroutinesVersion = "1.7.3"
-    val lifecycleruntimektxVersion = "2.7.0"
-// Coroutines
+
+    // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleruntimektxVersion")
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 }

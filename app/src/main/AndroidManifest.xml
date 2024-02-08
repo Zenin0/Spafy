@@ -12,11 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Spafy"
+        android:theme="@style/Theme.Spafy.Dark"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".loginModule.services.LoginActivity"
+            android:name=".loginModule.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

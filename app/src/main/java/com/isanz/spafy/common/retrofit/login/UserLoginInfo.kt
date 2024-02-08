@@ -1,4 +1,4 @@
-package com.isanz.spafy.common.retrofit
+package com.isanz.spafy.common.retrofit.login
 
 import com.google.gson.annotations.SerializedName
 import com.isanz.spafy.common.utils.Constants
