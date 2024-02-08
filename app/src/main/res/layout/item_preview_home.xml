@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="186dp"
     android:layout_height="76dp"
-    android:layout_margin="@dimen/common_margin_default">
+    android:layout_margin="@dimen/common_margin_default"
+    app:cardCornerRadius="@dimen/default_card_border"
+    app:cardElevation="@dimen/cardview_default_elevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
