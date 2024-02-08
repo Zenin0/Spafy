@@ -19,4 +19,5 @@
     <string name="icon_image">Icon image</string>
     <string name="login_error_bad_request">Error en el login</string>
     <string name="login_error_generic">Error en el servidor</string>
+    <string name="canciones">Canciones</string>
 </resources>
