@@ -21,13 +21,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRecent"
+            android:id="@+id/rvPlaylist"
             android:layout_width="match_parent"
-            android:layout_height="108dp"
+            android:layout_height="96dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_recent" />
+            tools:listitem="@layout/item_preview_home" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPodcast"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvPlaylist"
+            tools:listitem="@layout/item_preview_home" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

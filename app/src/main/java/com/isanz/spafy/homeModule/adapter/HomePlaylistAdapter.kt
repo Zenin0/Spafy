@@ -15,8 +15,8 @@ import com.isanz.spafy.R
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.utils.Constants
 
-class HomeListAdapter(private val context: Context) :
-    ListAdapter<PlayList, HomeListAdapter.PlayListViewHolder>(PlayListDiffCallback()) {
+class HomePlaylistAdapter(private val context: Context) :
+    ListAdapter<PlayList, HomePlaylistAdapter.PlayListViewHolder>(PlayListDiffCallback()) {
 
     class PlayListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
@@ -24,14 +24,14 @@ class HomeListAdapter(private val context: Context) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayListViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recent, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_preview_home, parent, false)
         return PlayListViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PlayListViewHolder, position: Int) {
         val playList = getItem(position)
         holder.title.text = playList.titulo
-        setImage(holder.imageView, Constants.IMAGE_URL)
+        setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
     }
 
     class PlayListDiffCallback : DiffUtil.ItemCallback<PlayList>() {
