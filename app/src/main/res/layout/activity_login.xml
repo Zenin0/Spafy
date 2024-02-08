@@ -20,7 +20,7 @@
     <ImageView
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:contentDescription="Icon Image"
+        android:contentDescription="@string/icon_image"
         android:src="@drawable/icon"
         app:layout_constraintBottom_toTopOf="@id/tilEmail"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,6 +3,7 @@ package com.isanz.spafy.loginModule
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
@@ -68,14 +69,28 @@ class LoginActivity : AppCompatActivity() {
                 (e as? HttpException)?.let {
                     when (it.code()) {
                         400 -> {
-                            updateUI(getString(R.string.main_error_server))
+                            Toast.makeText(
+                                this@LoginActivity,
+                                getString(R.string.login_error_bad_request),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
                         401 -> {
-                            updateUI(getString(R.string.login_error_unauthorized))
+                            Toast.makeText(
+                                this@LoginActivity,
+                                getString(R.string.login_error_unauthorized),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
-                        else -> updateUI(getString(R.string.main_error_server))
+                        else -> {
+                            Toast.makeText(
+                                this@LoginActivity,
+                                getString(R.string.login_error_generic),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
             }
@@ -84,11 +99,5 @@ class LoginActivity : AppCompatActivity() {
 
     private fun goToMain() {
         startActivity(Intent(this, MainActivity::class.java))
-    }
-
-
-    private suspend fun updateUI(result: String) = withContext(Dispatchers.Main) {
-        mBinding.tvResult.visibility = View.VISIBLE
-        mBinding.tvResult.text = result
     }
 }
