@@ -1,21 +1,61 @@
 #file: noinspection YAMLSchemaValidation
 
-login activity:
+main activity:
   - any:
       - changed-files:
-          - any-glob-to-any-file: 'src/Entity/*'
+          - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/MainActivity'
 
-security:
-    - any:
-        - changed-files:
-            - any-glob-to-any-file: 'SECURITY.md'
+common:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/common/*'
+
+utils:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/common/utils/*'
+
+retrofit:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/common/retrofit/*'
+
+
+entities:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/common/entities/*'
+
+
+home module:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/homeModule/*'
+
+
+library module:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/libraryModule/*'
 
 
 license:
     - any:
         - changed-files:
             - any-glob-to-any-file: 'LICENSE'
+
+login module:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/loginModule/*'
+
 readme:
   - any:
       - changed-files:
           - any-glob-to-any-file: 'README.md'
+
+security:
+    - any:
+        - changed-files:
+            - any-glob-to-any-file: 'SECURITY.md'
+
