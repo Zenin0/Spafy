@@ -32,6 +32,11 @@ home module:
       - changed-files:
           - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/homeModule/*'
 
+serach module:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/searchModule/*'
+
 layout:
   - any:
       - changed-files:
