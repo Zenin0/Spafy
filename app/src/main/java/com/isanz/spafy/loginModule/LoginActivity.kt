@@ -1,4 +1,4 @@
-package com.isanz.spafy.loginModule.services
+package com.isanz.spafy.loginModule
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.isanz.spafy.MainActivity
 import com.isanz.spafy.R
-import com.isanz.spafy.common.retrofit.UserLoginInfo
+import com.isanz.spafy.common.retrofit.login.UserLoginInfo
 import com.isanz.spafy.common.retrofit.login.LoginService
 import com.isanz.spafy.common.utils.Constants
 import com.isanz.spafy.databinding.ActivityLoginBinding

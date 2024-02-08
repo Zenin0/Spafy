@@ -5,6 +5,10 @@ object Constants {
     const val EMAIL_PARAM = "email"
     const val PASSWORD_PARAM = "password"
     const val LOGIN_PATH = "login"
+    const val PLAYLIST_PATH = "playlists"
+    const val USER_PATH = "user"
     const val OK = "ok"
+    const val IMAGE_URL =
+        "https://www.lahiguera.net/musicalia/artistas/varios/disco/13258/kaze_nombre_direccion-portada.jpg"
 
 }

@@ -1,6 +1,5 @@
 package com.isanz.spafy.common.retrofit.login
 
-import com.isanz.spafy.common.retrofit.UserLoginInfo
 import com.isanz.spafy.common.utils.Constants
 import retrofit2.http.Body
 import retrofit2.http.Headers

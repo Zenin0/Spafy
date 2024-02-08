@@ -2,4 +2,5 @@
 <resources>
     <dimen name="common_padding_default">16dp</dimen>
     <dimen name="main_textfield_width">256dp</dimen>
+    <dimen name="common_margin_default">8dp</dimen>
 </resources>
