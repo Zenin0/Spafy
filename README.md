@@ -5,7 +5,7 @@
     <img src="./app/src/main/res/drawable/icon.png" alt="Logo" width="500" height="500">
   </a>
 
-<h3 align="center">Spafy</h3>
+<h1 align="center">Spafy</h1>
 
   <p align="center">
     Spafy es una aplicación de música que te permite escuchar tus canciones favoritas, crear listas de reproducción y mucho más.

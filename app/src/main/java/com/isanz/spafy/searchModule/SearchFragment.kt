@@ -105,6 +105,37 @@ class SearchFragment : Fragment() {
                                     "Error en la petición",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+                        404 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "No se encontraron canciones",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+                        500 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en el servidor",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+                        else -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error desconocido",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
                             }
                         }
 
