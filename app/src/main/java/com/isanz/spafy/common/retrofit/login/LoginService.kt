@@ -11,4 +11,9 @@ interface LoginService {
     @POST(Constants.BASE_URL + Constants.LOGIN_PATH)
     suspend fun logUser(@Body data: UserLoginInfo): LoginResponse
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.BASE_URL + Constants.REGISTER_PATH)
+    suspend fun registerUser(@Body data: UserRegisterInfo): LoginResponse
+
+
 }

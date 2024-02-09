@@ -6,6 +6,7 @@ object Constants {
     const val EMAIL_PARAM = "email"
     const val PASSWORD_PARAM = "password"
     const val LOGIN_PATH = "login"
+    const val REGISTER_PATH = "register"
     const val PLAYLIST_PATH = "playlists"
     const val USER_PATH = "usuario"
     const val PODCAST_PATH = "podcasts"

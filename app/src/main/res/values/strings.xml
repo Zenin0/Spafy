@@ -20,4 +20,14 @@
     <string name="login_error_bad_request">Error en el login</string>
     <string name="login_error_generic">Error en el servidor</string>
     <string name="canciones">Canciones</string>
+    <string name="hint_username">Username</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="hint_birth">Birthdate</string>
+    <string name="hint_country">Country</string>
+    <string name="hint_zipcode">Postal Code</string>
+    <string name="login_error_empty_fields">Replenish all fields</string>
+    <string name="login_error_invalid_fields">Invalid Fields</string>
+    <string name="add_to_playlist">Add to playlist</string>
+    <string name="playlist_image">Playlist Image</string>
 </resources>

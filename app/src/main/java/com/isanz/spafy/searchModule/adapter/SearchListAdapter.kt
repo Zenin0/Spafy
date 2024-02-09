@@ -15,21 +15,22 @@ import com.isanz.spafy.R
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.utils.Constants
 
-class SearchListAdapter(private val context: Context) :
-    ListAdapter<Cancion, SearchListAdapter.CancionViewHolder>(CancionDiffCallback()) {
+class SearchListAdapter(private val context: Context, private val listener: OnItemClickListener) :
+    ListAdapter<Cancion, SearchListAdapter.ViewHolder>(CancionDiffCallback()) {
 
-    class CancionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         val title: TextView = itemView.findViewById(R.id.title)
-        val repros: TextView = itemView.findViewById(R.id.repros)
+        val repros: TextView = itemView.findViewById(R.id.duracion)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CancionViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search, parent, false)
-        return CancionViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CancionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cancion = getItem(position)
         holder.title.text = cancion.titulo
         val duracion = if (cancion.duracion % 60 < 10) {
@@ -38,6 +39,9 @@ class SearchListAdapter(private val context: Context) :
             "${cancion.duracion / 60}:${cancion.duracion % 60}"
         }
         holder.repros.text = duracion
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(cancion)
+        }
         setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
     }
 
@@ -54,4 +58,11 @@ class SearchListAdapter(private val context: Context) :
     private fun setImage(view: ImageView, uri: String) {
         Glide.with(context).load(uri).transform(CircleCrop()).into(view)
     }
+
+    interface OnItemClickListener {
+        fun onItemClick(cancion: Cancion)
+    }
+
 }
+
+
