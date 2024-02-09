@@ -85,18 +85,40 @@ class SearchFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val response = searchService.getCanciones()
+                val result = response.canciones
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
+                    if (result.isNotEmpty()) {
+                        canciones = result
+                        val cancionesSearchAdapter = mBinding.rvSearch.adapter as SearchListAdapter
+                        cancionesSearchAdapter.submitList(result)
+                    }
                 }
-                val result = response.canciones
-                if (result.isNotEmpty()) {
-                    val cancionesSearchAdapter = mBinding.rvSearch.adapter as SearchListAdapter
-                    cancionesSearchAdapter.submitList(result)
-                }
+
             } catch (e: Exception) {
                 (e as? HttpException)?.let {
                     when (it.code()) {
                         400 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en la petición",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                        404 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "No se encontraron canciones",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                        else -> {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
