@@ -112,6 +112,40 @@ class HomeFragment : Fragment() {
                                     "Error en la petición",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+
+                        404 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "No se encontraron álbumes",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+
+                        500 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en el servidor",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+
+                        else -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error desconocido",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
                             }
                         }
                     }
@@ -155,8 +189,43 @@ class HomeFragment : Fragment() {
                                     "Error en la petición",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                mBinding.progressBar.visibility = View.GONE
                             }
                         }
+
+                        404 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "No se encontraron playlists",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+
+                        500 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en el servidor",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+
+                        else -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error desconocido",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+
                     }
                 }
             }
@@ -195,6 +264,36 @@ class HomeFragment : Fragment() {
                                 Toast.makeText(
                                     requireContext(),
                                     "Error en la petición",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                        404 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "No se encontraron podcasts",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                        500 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en el servidor",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                        else -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error desconocido",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
