@@ -16,20 +16,20 @@ import com.isanz.spafy.common.entities.Album
 import com.isanz.spafy.common.utils.Constants
 
 class HomeAlbumAdapter(private val context: Context) :
-    ListAdapter<Album, HomeAlbumAdapter.AlbumViewHolder>(AlbumDiffCallback()) {
+    ListAdapter<Album, HomeAlbumAdapter.ViewHolder>(AlbumDiffCallback()) {
 
-    class AlbumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         val title: TextView = itemView.findViewById(R.id.title)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_preview_home, parent, false)
-        return AlbumViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val album = getItem(position)
         holder.title.text = album.titulo
         setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)

@@ -16,19 +16,19 @@ import com.isanz.spafy.common.entities.Podcast
 import com.isanz.spafy.common.utils.Constants
 
 class HomePodcastAdapter(private val context: Context) :
-    ListAdapter<Podcast, HomePodcastAdapter.PodcastViewHolder>(PodcastDiffCallback()) {
+    ListAdapter<Podcast, HomePodcastAdapter.ViewHolder>(PodcastDiffCallback()) {
 
-    class PodcastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         val title: TextView = itemView.findViewById(R.id.title)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PodcastViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_preview_home, parent, false)
-        return PodcastViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: PodcastViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val podcast = getItem(position)
         holder.title.text = podcast.titulo
         setImage(holder.imageView, Constants.IMAGE_PODCAST_URL)

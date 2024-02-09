@@ -9,6 +9,8 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.isanz.spafy.AddToPlaylistFragment
+import com.isanz.spafy.R
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.retrofit.search.SearchService
 import com.isanz.spafy.common.utils.Constants
@@ -21,7 +23,7 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), SearchListAdapter.OnItemClickListener {
     private lateinit var mBinding: FragmentSearchBinding
     private lateinit var searchListAdapter: SearchListAdapter
     private var canciones: List<Cancion> = listOf()
@@ -32,7 +34,7 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentSearchBinding.inflate(inflater, container, false)
-        searchListAdapter = SearchListAdapter(this.requireContext())
+        searchListAdapter = SearchListAdapter(this.requireContext(), this)
         setupRecyclerView()
         setupSearchView()
         return mBinding.root
@@ -44,6 +46,22 @@ class SearchFragment : Fragment() {
             id = it.getInt("id")
         }
     }
+
+
+    override fun onItemClick(cancion: Cancion) {
+        // Create new fragment and bundle
+        val addPlaylist = AddToPlaylistFragment.newInstance()
+        val args = Bundle()
+        args.putSerializable("cancionId", cancion.id)
+        addPlaylist.arguments = args
+
+        // Replace the fragment
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, addPlaylist)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
 
     companion object {
         fun newInstance(id: Int) = SearchFragment().apply {
@@ -85,7 +103,7 @@ class SearchFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val response = searchService.getCanciones()
-                val result = response.canciones
+                val result = response.body() ?: emptyList()
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                     if (result.isNotEmpty()) {
@@ -108,6 +126,7 @@ class SearchFragment : Fragment() {
                                 mBinding.progressBar.visibility = View.GONE
                             }
                         }
+
                         404 -> {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
@@ -118,6 +137,7 @@ class SearchFragment : Fragment() {
                                 mBinding.progressBar.visibility = View.GONE
                             }
                         }
+
                         500 -> {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
@@ -128,6 +148,7 @@ class SearchFragment : Fragment() {
                                 mBinding.progressBar.visibility = View.GONE
                             }
                         }
+
                         else -> {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
@@ -136,26 +157,6 @@ class SearchFragment : Fragment() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
-                            }
-                        }
-
-                        404 -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "No se encontraron canciones",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-
-                        else -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Error en la petición",
-                                    Toast.LENGTH_SHORT
-                                ).show()
                             }
                         }
                     }
