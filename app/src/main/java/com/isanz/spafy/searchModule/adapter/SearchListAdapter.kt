@@ -21,6 +21,7 @@ class SearchListAdapter(private val context: Context) :
     class CancionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         val title: TextView = itemView.findViewById(R.id.title)
+        val duracion: TextView = itemView.findViewById(R.id.duracion)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CancionViewHolder {
@@ -31,6 +32,9 @@ class SearchListAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: CancionViewHolder, position: Int) {
         val cancion = getItem(position)
         holder.title.text = cancion.titulo
+        val minutes = cancion.duracion / 60
+        val seconds = cancion.duracion % 60
+        "$minutes:$seconds".also { holder.duracion.text = it }
         setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
     }
 
