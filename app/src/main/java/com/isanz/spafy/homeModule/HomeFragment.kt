@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.isanz.spafy.common.retrofit.home.HomeService
 import com.isanz.spafy.common.utils.Constants
 import com.isanz.spafy.databinding.FragmentHomeBinding
+import com.isanz.spafy.homeModule.adapter.HomeAlbumAdapter
 import com.isanz.spafy.homeModule.adapter.HomePlaylistAdapter
 import com.isanz.spafy.homeModule.adapter.HomePodcastAdapter
 import kotlinx.coroutines.Dispatchers
@@ -36,21 +37,66 @@ class HomeFragment : Fragment() {
         mBinding.progressBar.visibility = View.VISIBLE
 
         val playlistHomeAdapter = HomePlaylistAdapter(this.requireContext())
-        val podcastHomeAdapter = HomePodcastAdapter(this.requireContext()) // corrected line
+        val podcastHomeAdapter = HomePodcastAdapter(this.requireContext())
+        val albumHomeAdapter = HomeAlbumAdapter(this.requireContext())
 
         val podcastLayoutManager = LinearLayoutManager(requireContext())
         val playlistLayoutManager = LinearLayoutManager(requireContext())
+        val albumLayoutManager = LinearLayoutManager(requireContext())
 
         podcastLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         playlistLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        albumLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
 
         mBinding.rvPodcast.layoutManager = podcastLayoutManager
-        mBinding.rvPodcast.adapter = podcastHomeAdapter // corrected line
+        mBinding.rvPodcast.adapter = podcastHomeAdapter
+
 
         mBinding.rvPlaylist.layoutManager = playlistLayoutManager
         mBinding.rvPlaylist.adapter = playlistHomeAdapter
+
+        mBinding.rvAlbums.layoutManager = albumLayoutManager
+        mBinding.rvAlbums.adapter = albumHomeAdapter
         setUpPlaylists()
         setUpPodcasts()
+        setUpAlbums()
+    }
+
+    private fun setUpAlbums() {
+        val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        val homeService = retrofit.create(HomeService::class.java)
+
+        lifecycleScope.launch {
+            try {
+                val response = homeService.getUserAlbums(1)
+                withContext(Dispatchers.Main) {
+                    mBinding.progressBar.visibility = View.GONE
+                }
+                val result = response.albums
+                // Replace _ with space and first letter to upper case
+                result.forEach {
+                    it.titulo = it.titulo.replace("_", " ").replaceFirstChar { char ->
+                        if (char.isLowerCase()) char.titlecase(
+                            java.util.Locale.getDefault()
+                        ) else char.toString()
+                    }
+                }
+                if (result.isNotEmpty()) {
+                    val albumHomeAdapter = mBinding.rvAlbums.adapter as HomeAlbumAdapter
+                    albumHomeAdapter.submitList(result)
+                }
+            } catch (e: Exception) {
+                (e as? HttpException)?.let {
+                    when (it.code()) {
+                        400 -> {
+                            Toast.makeText(requireActivity(), "Error 400", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
