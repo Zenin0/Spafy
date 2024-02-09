@@ -1,5 +1,7 @@
 package com.isanz.spafy
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -15,11 +17,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mFragmentManager: FragmentManager
     private lateinit var mActiveFragment: Fragment
+    private var id: Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
+        id = intent.getIntExtra("id", 0)
         setUpBottomNav()
         setContentView(mBinding.root)
     }
@@ -27,9 +32,9 @@ class MainActivity : AppCompatActivity() {
     private fun setUpBottomNav() { // Setup bottom navigation
 
         mFragmentManager = supportFragmentManager
-        val homeFragment = HomeFragment()
-        val searchFragment = SearchFragment()
-        val libraryFragment = LibraryFragment()
+        val homeFragment = HomeFragment.newInstance(id)
+        val searchFragment = SearchFragment.newInstance(id)
+        val libraryFragment = LibraryFragment.newInstance(id)
 
         mActiveFragment = homeFragment
 

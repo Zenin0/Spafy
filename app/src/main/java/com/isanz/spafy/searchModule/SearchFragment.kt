@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isanz.spafy.common.entities.Cancion
-import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.search.SearchService
 import com.isanz.spafy.common.utils.Constants
 import com.isanz.spafy.databinding.FragmentSearchBinding
@@ -26,6 +25,7 @@ class SearchFragment : Fragment() {
     private lateinit var mBinding: FragmentSearchBinding
     private lateinit var searchListAdapter: SearchListAdapter
     private var canciones: List<Cancion> = listOf()
+    private var id: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,22 +35,36 @@ class SearchFragment : Fragment() {
         searchListAdapter = SearchListAdapter(this.requireContext())
         setupRecyclerView()
         setupSearchView()
-        setUpPlaylists()
         return mBinding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            id = it.getInt("id")
+        }
+    }
+
+    companion object {
+        fun newInstance(id: Int) = SearchFragment().apply {
+            arguments = Bundle().apply {
+                putInt("id", id)
+            }
+        }
     }
 
     private fun setupRecyclerView() {
         mBinding.progressBar.visibility = View.VISIBLE
-        val playlistLayoutManager = LinearLayoutManager(requireContext())
-        playlistLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        mBinding.rvSearch.layoutManager = playlistLayoutManager
+        val cancionesLayoutManager = LinearLayoutManager(requireContext())
+        cancionesLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        mBinding.rvSearch.layoutManager = cancionesLayoutManager
         mBinding.rvSearch.adapter = searchListAdapter
+        setUpCanciones()
     }
 
     private fun setupSearchView() {
         mBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                // Perform search operation here
                 return true
             }
 
@@ -63,29 +77,33 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun setUpPlaylists() {
+    private fun setUpCanciones() {
         val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build()
-        val homeService = retrofit.create(SearchService::class.java)
+        val searchService = retrofit.create(SearchService::class.java)
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getCanciones()
+                val response = searchService.getCanciones()
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
                 val result = response.canciones
                 if (result.isNotEmpty()) {
-                    canciones = result
-                    val playlistHomeAdapter = mBinding.rvSearch.adapter as SearchListAdapter
-                    playlistHomeAdapter.submitList(result)
+                    val cancionesSearchAdapter = mBinding.rvSearch.adapter as SearchListAdapter
+                    cancionesSearchAdapter.submitList(result)
                 }
             } catch (e: Exception) {
                 (e as? HttpException)?.let {
                     when (it.code()) {
                         400 -> {
-                            Toast.makeText(requireActivity(), "Error 400", Toast.LENGTH_SHORT)
-                                .show()
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en la petición",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }

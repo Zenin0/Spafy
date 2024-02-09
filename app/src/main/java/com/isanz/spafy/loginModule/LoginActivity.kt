@@ -64,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
                         email, password
                     )
                 )
-                if (result.ok.isNotEmpty()) goToMain()
+                if (result.ok.isNotEmpty()) goToMain(result.ok.toInt())
             } catch (e: Exception) {
                 (e as? HttpException)?.let {
                     when (it.code()) {
@@ -97,7 +97,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun goToMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun goToMain(id : Int) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("id", id) // replace "key" and "value" with your actual key and value
+        startActivity(intent)
     }
 }

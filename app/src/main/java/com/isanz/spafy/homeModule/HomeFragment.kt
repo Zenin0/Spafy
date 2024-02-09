@@ -24,6 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class HomeFragment : Fragment() {
 
     private lateinit var mBinding: FragmentHomeBinding
+    private var id: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -31,6 +32,21 @@ class HomeFragment : Fragment() {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false)
         setupRecyclerView()
         return mBinding.root
+    }
+
+    companion object {
+        fun newInstance(id: Int) = HomeFragment().apply {
+            arguments = Bundle().apply {
+                putInt("id", id)
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            id = it.getInt("id")
+        }
     }
 
     private fun setupRecyclerView() {
@@ -69,7 +85,7 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserAlbums(1)
+                val response = homeService.getUserAlbums(id)
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -90,8 +106,13 @@ class HomeFragment : Fragment() {
                 (e as? HttpException)?.let {
                     when (it.code()) {
                         400 -> {
-                            Toast.makeText(requireActivity(), "Error 400", Toast.LENGTH_SHORT)
-                                .show()
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en la petición",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }
@@ -107,7 +128,7 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserPlaylists(1)
+                val response = homeService.getUserPlaylists(id)
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -128,8 +149,13 @@ class HomeFragment : Fragment() {
                 (e as? HttpException)?.let {
                     when (it.code()) {
                         400 -> {
-                            Toast.makeText(requireActivity(), "Error 400", Toast.LENGTH_SHORT)
-                                .show()
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en la petición",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }
@@ -144,7 +170,7 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserPodcast(1)
+                val response = homeService.getUserPodcast(id)
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -165,8 +191,13 @@ class HomeFragment : Fragment() {
                 (e as? HttpException)?.let {
                     when (it.code()) {
                         400 -> {
-                            Toast.makeText(requireActivity(), "Error 400", Toast.LENGTH_SHORT)
-                                .show()
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en la petición",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }
