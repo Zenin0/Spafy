@@ -28,12 +28,20 @@
             android:layout_height="wrap_content"
             android:text="@string/playlisy_tittle"
             app:layout_constraintBottom_toBottomOf="parent"
+<<<<<<< HEAD
+            app:layout_constraintEnd_toStartOf="@id/repros"
+=======
             app:layout_constraintEnd_toStartOf="@id/duracion"
+>>>>>>> main
             app:layout_constraintStart_toEndOf="@id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+<<<<<<< HEAD
+            android:id="@+id/repros"
+=======
             android:id="@+id/duracion"
+>>>>>>> main
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/common_padding_default"
