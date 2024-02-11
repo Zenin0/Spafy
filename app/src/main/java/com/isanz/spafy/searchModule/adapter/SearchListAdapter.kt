@@ -14,8 +14,9 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.isanz.spafy.R
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.utils.Constants
+import com.isanz.spafy.common.utils.IOnItemClickListener
 
-class SearchListAdapter(private val context: Context, private val listener: OnItemClickListener) :
+class SearchListAdapter(private val context: Context, private val listener: IOnItemClickListener) :
     ListAdapter<Cancion, SearchListAdapter.ViewHolder>(CancionDiffCallback()) {
 
 
@@ -57,10 +58,6 @@ class SearchListAdapter(private val context: Context, private val listener: OnIt
 
     private fun setImage(view: ImageView, uri: String) {
         Glide.with(context).load(uri).transform(CircleCrop()).into(view)
-    }
-
-    interface OnItemClickListener {
-        fun onItemClick(cancion: Cancion)
     }
 
 }

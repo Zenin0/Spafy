@@ -21,6 +21,8 @@ class HomePodcastAdapter(private val context: Context) :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         val title: TextView = itemView.findViewById(R.id.title)
+        val canciones: TextView = itemView.findViewById(R.id.numCanciones)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,6 +33,7 @@ class HomePodcastAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val podcast = getItem(position)
         holder.title.text = podcast.titulo
+        holder.canciones.visibility = View.GONE
         setImage(holder.imageView, Constants.IMAGE_PODCAST_URL)
     }
 

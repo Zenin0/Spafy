@@ -9,11 +9,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.isanz.spafy.AddToPlaylistFragment
 import com.isanz.spafy.R
 import com.isanz.spafy.common.entities.Cancion
+import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.search.SearchService
 import com.isanz.spafy.common.utils.Constants
+import com.isanz.spafy.common.utils.IOnItemClickListener
 import com.isanz.spafy.databinding.FragmentSearchBinding
 import com.isanz.spafy.searchModule.adapter.SearchListAdapter
 import kotlinx.coroutines.Dispatchers
@@ -23,11 +24,11 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class SearchFragment : Fragment(), SearchListAdapter.OnItemClickListener {
+class SearchFragment : Fragment(), IOnItemClickListener {
     private lateinit var mBinding: FragmentSearchBinding
     private lateinit var searchListAdapter: SearchListAdapter
     private var canciones: List<Cancion> = listOf()
-    private var id: Int = 0
+    private var idUsuario: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,23 +44,24 @@ class SearchFragment : Fragment(), SearchListAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            id = it.getInt("id")
+            idUsuario = it.getInt("id")
         }
     }
 
 
     override fun onItemClick(cancion: Cancion) {
         // Create new fragment and bundle
-        val addPlaylist = AddToPlaylistFragment.newInstance()
-        val args = Bundle()
-        args.putSerializable("cancionId", cancion.id)
-        addPlaylist.arguments = args
+        val addPlaylist = AddToPlaylistFragment.newInstance(cancion.id, idUsuario)
 
-        // Replace the fragment
+        // Add the fragment on top of the current one
         val transaction = parentFragmentManager.beginTransaction()
         transaction.replace(R.id.container, addPlaylist)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    override fun onItemClick(playlist: PlayList) {
+        Toast.makeText(requireContext(), "Playlist", Toast.LENGTH_SHORT).show()
     }
 
 

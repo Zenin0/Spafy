@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
-        id = intent.getIntExtra("id", 0)
+        id = intent.getIntExtra("idUsuario", 0)
         setUpBottomNav()
         setContentView(mBinding.root)
     }

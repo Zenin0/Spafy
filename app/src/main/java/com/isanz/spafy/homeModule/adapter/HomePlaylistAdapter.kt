@@ -21,16 +21,19 @@ class HomePlaylistAdapter(private val context: Context) :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         val title: TextView = itemView.findViewById(R.id.title)
+        val canciones: TextView = itemView.findViewById(R.id.numCanciones)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_preview_home, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_preview_home, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val playList = getItem(position)
         holder.title.text = playList.titulo
+        "Canciones: ${playList.numeroCanciones}".also { holder.canciones.text = it }
         setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
     }
 

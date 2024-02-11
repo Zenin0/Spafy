@@ -30,4 +30,5 @@
     <string name="login_error_invalid_fields">Invalid Fields</string>
     <string name="add_to_playlist">Add to playlist</string>
     <string name="playlist_image">Playlist Image</string>
+    <string name="num_canciones">0</string>
 </resources>

@@ -2,12 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/fragmentAddToPlaylist"
     android:layout_height="match_parent"
-    android:id="@+id/container"
-    tools:context=".AddToPlaylistFragment">
+    android:background="@color/md_theme_dark_background"
+    tools:context=".searchModule.AddToPlaylistFragment">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPlaylists"
+        android:id="@+id/rvAddToPlaylist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/common_padding_default"
