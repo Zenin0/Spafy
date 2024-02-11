@@ -10,7 +10,7 @@
   <p align="center">
     Spafy es una aplicación de música que te permite escuchar tus canciones favoritas, crear listas de reproducción y mucho más.
     <br />
-    <a href="https://github.com/Zenin0/Spafy/tree/main/App"><strong>Explora el Código »</strong></a>
+    <a href="https://github.com/Zenin0/Spafy/tree/main/app"><strong>Explora el Código »</strong></a>
     <br />
     <br />
     <a href="https://github.com/Zenin0/Spafy/issues">Reportar un Bug</a>
