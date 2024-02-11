@@ -19,6 +19,7 @@ retrofit:
   - any:
       - changed-files:
           - any-glob-to-any-file: 'app/src/main/java/com/isanz/spafy/common/retrofit/*'
+          
 
 
 entities:
