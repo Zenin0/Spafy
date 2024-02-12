@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/home/isaac/.local/share/JetBrains/Toolbox/apps/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/add/baseline_add_24.xml" />
+                                      <entry key="url" value="jar:file:/home/isaac/.local/share/JetBrains/Toolbox/apps/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/image/baseline_image_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_add" />
+                            <entry key="outputName" value="ic_image" />
                           </map>
                         </option>
                       </PersistentState>
