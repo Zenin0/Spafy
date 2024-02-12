@@ -5,7 +5,7 @@ import java.util.Date
 
 data class AnyadeCancionPlaylist(
     @SerializedName("fechaAnyadida") val fechaAnyadida: Date,
-    @SerializedName("playlist") val playlist: PlayList,
+    @SerializedName("playlist") val playlist: Cancion,
     @SerializedName("cancion") val cancion: Cancion,
     @SerializedName("usuario") val usuario: Usuario
 )

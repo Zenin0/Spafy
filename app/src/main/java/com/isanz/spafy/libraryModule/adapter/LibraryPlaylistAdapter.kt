@@ -14,8 +14,12 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.isanz.spafy.R
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.utils.Constants
+import com.isanz.spafy.common.utils.IOnItemClickListener
 
-class LibraryPlaylistAdapter(private val context: Context) :
+class LibraryPlaylistAdapter(
+    private val context: Context,
+    private val listener: IOnItemClickListener
+) :
     ListAdapter<PlayList, LibraryPlaylistAdapter.ViewHolder>(PlayListDiffCallback()) {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,6 +39,9 @@ class LibraryPlaylistAdapter(private val context: Context) :
         holder.title.text = playList.titulo
         "Canciones: ${playList.numeroCanciones}".also { holder.canciones.text = it }
         setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(playList)
+        }
     }
 
     class PlayListDiffCallback : DiffUtil.ItemCallback<PlayList>() {
