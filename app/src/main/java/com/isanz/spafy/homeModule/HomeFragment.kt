@@ -24,10 +24,10 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class HomeFragment : Fragment(), IOnItemClickListener {
+class HomeFragment : Fragment() {
 
     private lateinit var mBinding: FragmentHomeBinding
-    private var id: Int = 0
+    private var userId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,9 +38,9 @@ class HomeFragment : Fragment(), IOnItemClickListener {
     }
 
     companion object {
-        fun newInstance(id: Int) = HomeFragment().apply {
+        fun newInstance(userId: Int) = HomeFragment().apply {
             arguments = Bundle().apply {
-                putInt("id", id)
+                putInt("userId", userId)
             }
         }
     }
@@ -48,7 +48,7 @@ class HomeFragment : Fragment(), IOnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            id = it.getInt("id")
+            userId = it.getInt("userId")
         }
     }
 
@@ -88,7 +88,7 @@ class HomeFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserAlbums(id)
+                val response = homeService.getUserAlbums(userId)
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -165,7 +165,7 @@ class HomeFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserPlaylists(id)
+                val response = homeService.getUserPlaylists(userId)
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -242,7 +242,7 @@ class HomeFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserPodcast(id)
+                val response = homeService.getUserPodcast(userId)
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -305,12 +305,5 @@ class HomeFragment : Fragment(), IOnItemClickListener {
                 }
             }
         }
-    }
-
-    override fun onItemClick(cancion: Cancion) {
-    }
-
-    override fun onItemClick(playlist: PlayList) {
-
     }
 }

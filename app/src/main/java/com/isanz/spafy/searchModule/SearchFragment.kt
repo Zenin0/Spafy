@@ -44,7 +44,15 @@ class SearchFragment : Fragment(), IOnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            idUsuario = it.getInt("id")
+            idUsuario = it.getInt("userId")
+        }
+    }
+
+    companion object {
+        fun newInstance(id: Int) = SearchFragment().apply {
+            arguments = Bundle().apply {
+                putInt("userId", id)
+            }
         }
     }
 
@@ -61,17 +69,17 @@ class SearchFragment : Fragment(), IOnItemClickListener {
     }
 
     override fun onItemClick(playlist: PlayList) {
-        Toast.makeText(requireContext(), "Playlist", Toast.LENGTH_SHORT).show()
+        TODO("Not yet implemented")
     }
 
-
-    companion object {
-        fun newInstance(id: Int) = SearchFragment().apply {
-            arguments = Bundle().apply {
-                putInt("id", id)
-            }
-        }
+    override fun onLongItemClick(playlist: PlayList) {
+        TODO("Not yet implemented")
     }
+
+    override fun onLongItemClick(cancion: Cancion) {
+        TODO("Not yet implemented")
+    }
+
 
     private fun setupRecyclerView() {
         mBinding.progressBar.visibility = View.VISIBLE

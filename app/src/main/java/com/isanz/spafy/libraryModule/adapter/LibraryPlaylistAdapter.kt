@@ -42,6 +42,10 @@ class LibraryPlaylistAdapter(
         holder.itemView.setOnClickListener {
             listener.onItemClick(playList)
         }
+        holder.itemView.setOnLongClickListener {
+            listener.onLongItemClick(playList)
+            true
+        }
     }
 
     class PlayListDiffCallback : DiffUtil.ItemCallback<PlayList>() {
@@ -56,5 +60,11 @@ class LibraryPlaylistAdapter(
 
     private fun setImage(view: ImageView, uri: String) {
         Glide.with(context).load(uri).transform(CircleCrop()).into(view)
+    }
+
+    fun removePlaylist(playlist: PlayList) {
+        val currentList = currentList.toMutableList()
+        currentList.remove(playlist)
+        submitList(currentList)
     }
 }
