@@ -8,8 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.isanz.spafy.common.entities.Cancion
+import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.home.HomeService
 import com.isanz.spafy.common.utils.Constants
+import com.isanz.spafy.common.utils.IOnItemClickListener
 import com.isanz.spafy.databinding.FragmentHomeBinding
 import com.isanz.spafy.homeModule.adapter.HomeAlbumAdapter
 import com.isanz.spafy.homeModule.adapter.HomePlaylistAdapter
@@ -21,7 +24,7 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), IOnItemClickListener {
 
     private lateinit var mBinding: FragmentHomeBinding
     private var id: Int = 0
@@ -302,5 +305,12 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onItemClick(cancion: Cancion) {
+    }
+
+    override fun onItemClick(playlist: PlayList) {
+
     }
 }

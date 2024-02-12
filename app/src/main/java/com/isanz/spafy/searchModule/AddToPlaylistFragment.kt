@@ -14,7 +14,6 @@ import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.home.HomeService
 import com.isanz.spafy.common.retrofit.search.SearchService
-import com.isanz.spafy.common.retrofit.search.UserIdInfo
 import com.isanz.spafy.common.utils.Constants
 import com.isanz.spafy.common.utils.IOnItemClickListener
 import com.isanz.spafy.databinding.FragmentAddToPlaylistBinding
@@ -71,7 +70,15 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                 lifecycleScope.launch {
                     try {
                         val response =
-                            searchService.addSongToPlaylist(playlist.id, idCancion, UserIdInfo(idUsuario))
+                            searchService.addSongToPlaylist(
+                                playlist.id,
+                                idCancion,
+                                idUsuario
+                            )
+                        Log.i(
+                            "AddToPlaylistFragment",
+                            "onItemClick: $idCancion $idUsuario ${playlist.id}"
+                        )
                         Log.i("AddToPlaylistFragment", "onItemClick: $response")
                         if (response.isSuccessful) {
                             withContext(Dispatchers.Main) {
@@ -132,6 +139,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
             }
             .show()
     }
+
     companion object {
         fun newInstance(idCancion: Int, idUsuario: Int) = AddToPlaylistFragment().apply {
             arguments = Bundle().apply {
