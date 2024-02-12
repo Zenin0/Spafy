@@ -44,9 +44,18 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            idCancion = it.getInt("idCancion")
-            idUsuario = it.getInt("idUsuario")
+            idCancion = it.getInt("cancionId")
+            idUsuario = it.getInt("userId")
 
+        }
+    }
+
+    companion object {
+        fun newInstance(idCancion: Int, idUsuario: Int) = AddToPlaylistFragment().apply {
+            arguments = Bundle().apply {
+                putInt("cancionId", idCancion)
+                putInt("userId", idUsuario)
+            }
         }
     }
 
@@ -140,13 +149,12 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
             .show()
     }
 
-    companion object {
-        fun newInstance(idCancion: Int, idUsuario: Int) = AddToPlaylistFragment().apply {
-            arguments = Bundle().apply {
-                putInt("idCancion", idCancion)
-                putInt("idUsuario", idUsuario)
-            }
-        }
+    override fun onLongItemClick(cancion: PlayList) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onLongItemClick(cancion: Cancion) {
+        TODO("Not yet implemented")
     }
 
     private fun setupRecyclerView() {

@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.search.SearchService
@@ -28,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SongsFragment : Fragment(), IOnItemClickListener {
 
     private lateinit var mBinding: FragmentSongsBinding
-    private var id: Int = 0
+    private var userId: Int = 0
     private lateinit var playlist: PlayList
 
     override fun onCreateView(
@@ -42,9 +43,9 @@ class SongsFragment : Fragment(), IOnItemClickListener {
     }
 
     companion object {
-        fun newInstance(id: Int) = SongsFragment().apply {
+        fun newInstance(userId: Int) = SongsFragment().apply {
             arguments = Bundle().apply {
-                putInt("id", id)
+                putInt("userId", userId)
             }
         }
     }
@@ -52,7 +53,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            id = it.getInt("id")
+            userId = it.getInt("userId")
         }
     }
 
@@ -83,7 +84,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = searchService.getCancionesPlaylist(id)
+                val response = searchService.getCancionesPlaylist(userId)
                 val result = response.body() ?: emptyList()
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
@@ -152,7 +153,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = searchService.getPlaylist(id)
+                val response = searchService.getPlaylist(userId)
                 val result = response.body()
                 withContext(Dispatchers.Main) {
                     if (result != null) {
@@ -209,11 +210,30 @@ class SongsFragment : Fragment(), IOnItemClickListener {
     }
 
     override fun onItemClick(cancion: Cancion) {
-        TODO("Not yet implemented")
+        Toast.makeText(requireContext(), "Cancion: ${cancion.titulo}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemClick(playlist: PlayList) {
         TODO("Not yet implemented")
+    }
+
+    override fun onLongItemClick(playlist: PlayList) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onLongItemClick(cancion: Cancion) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Remove Song")
+            .setMessage("Are you sure you want to remove this song?")
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Remove") { dialog, _ ->
+                val adapter = mBinding.rvSongs.adapter as SongListAdapter
+                adapter.removeSong(cancion)
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun setImage(view: ImageView, uri: String) {

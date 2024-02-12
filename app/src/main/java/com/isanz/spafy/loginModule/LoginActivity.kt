@@ -204,9 +204,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun goToMain(id: Int) {
+    private fun goToMain(userId: Int) {
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("idUsuario", id) // replace "key" and "value" with your actual key and value
+        intent.putExtra("userId", userId)
         startActivity(intent)
     }
 }

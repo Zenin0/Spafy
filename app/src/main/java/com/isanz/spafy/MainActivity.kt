@@ -15,22 +15,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mFragmentManager: FragmentManager
     private lateinit var mActiveFragment: Fragment
-    private var id: Int = 0
+    private var userId: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
-        id = intent.getIntExtra("idUsuario", 0)
+        userId = intent.getIntExtra("userId", 0)
         setUpBottomNav()
         setContentView(mBinding.root)
     }
 
     private fun setUpBottomNav() {
-        val homeFragment = HomeFragment.newInstance(id)
-        val searchFragment = SearchFragment.newInstance(id)
-        val libraryFragment = LibraryFragment.newInstance(id)
+        val homeFragment = HomeFragment.newInstance(userId)
+        val searchFragment = SearchFragment.newInstance(userId)
+        val libraryFragment = LibraryFragment.newInstance(userId)
 
         mFragmentManager = supportFragmentManager
         mFragmentManager.beginTransaction()

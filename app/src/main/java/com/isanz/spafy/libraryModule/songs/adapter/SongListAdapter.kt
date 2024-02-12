@@ -41,8 +41,9 @@ class SongListAdapter(private val context: Context, private val listener: IOnIte
         }
         holder.canciones.text = duracion
         setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
-        holder.itemView.setOnClickListener {
-            listener.onItemClick(cancion)
+        holder.itemView.setOnLongClickListener() {
+            listener.onLongItemClick(cancion)
+            true
         }
     }
 
@@ -58,5 +59,11 @@ class SongListAdapter(private val context: Context, private val listener: IOnIte
 
     private fun setImage(view: ImageView, uri: String) {
         Glide.with(context).load(uri).transform(CircleCrop()).into(view)
+    }
+
+    fun removeSong(cancion: Cancion) {
+        val currentList = currentList.toMutableList()
+        currentList.remove(cancion)
+        submitList(currentList)
     }
 }

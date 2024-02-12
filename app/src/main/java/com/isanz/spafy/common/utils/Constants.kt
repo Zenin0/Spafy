@@ -11,6 +11,8 @@ object Constants {
     const val PLAYLIST_PATH = "playlist"
     const val USER_PATH = "usuario"
     const val PODCAST_PATH = "podcasts"
+    const val TITTLE_PARAM = "titulo"
+    const val USURIO_PARAM = "usuario_id"
     const val CANCIONES_PATH = "canciones"
     const val IDUSUARIO = "idUsuario"
     const val CANCION_PATH = "cancion"
