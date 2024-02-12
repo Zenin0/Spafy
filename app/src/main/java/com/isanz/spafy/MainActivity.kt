@@ -1,7 +1,5 @@
 package com.isanz.spafy
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -29,24 +27,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
     }
 
-    private fun setUpBottomNav() { // Setup bottom navigation
-
-        mFragmentManager = supportFragmentManager
+    private fun setUpBottomNav() {
         val homeFragment = HomeFragment.newInstance(id)
         val searchFragment = SearchFragment.newInstance(id)
         val libraryFragment = LibraryFragment.newInstance(id)
 
-        mActiveFragment = homeFragment
+        mFragmentManager = supportFragmentManager
+        mFragmentManager.beginTransaction()
+            .add(R.id.hostFragment, libraryFragment, LibraryFragment::class.java.name)
+            .hide(libraryFragment).commit()
+        mFragmentManager.beginTransaction()
+            .add(R.id.hostFragment, searchFragment, SearchFragment::class.java.name)
+            .hide(searchFragment).commit()
+        mFragmentManager.beginTransaction()
+            .add(R.id.hostFragment, homeFragment, HomeFragment::class.java.name).commit()
 
-        mFragmentManager.beginTransaction().add(
-            R.id.hostFragment, libraryFragment, LibraryFragment::class.java.name
-        ).hide(libraryFragment).commit()
-        mFragmentManager.beginTransaction().add(
-            R.id.hostFragment, searchFragment, SearchFragment::class.java.name
-        ).hide(searchFragment).commit()
-        mFragmentManager.beginTransaction().add(
-            R.id.hostFragment, homeFragment, HomeFragment::class.java.name
-        ).commit()
+        mActiveFragment = homeFragment
 
         mBinding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {

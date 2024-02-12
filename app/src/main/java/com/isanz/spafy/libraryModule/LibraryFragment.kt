@@ -4,18 +4,44 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.isanz.spafy.R
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.isanz.spafy.common.retrofit.home.HomeService
+import com.isanz.spafy.common.utils.Constants
+import com.isanz.spafy.common.utils.IOnItemClickListener
+import com.isanz.spafy.databinding.FragmentLibraryBinding
+import com.isanz.spafy.libraryModule.adapter.LibraryPlaylistAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class LibraryFragment : Fragment() {
 
     private var id: Int = 0
+    private lateinit var mBinding: FragmentLibraryBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_library, container, false)
+    ): View {
+        mBinding = FragmentLibraryBinding.inflate(inflater, container, false)
+        setUpRecyclerView()
+        return mBinding.root
+    }
+
+    private fun setUpRecyclerView() {
+        mBinding.recyclerView.adapter = LibraryPlaylistAdapter(requireContext())
+        mBinding.progressBar.visibility = View.VISIBLE
+        val layoutManager = LinearLayoutManager(requireContext())
+        mBinding.recyclerView.layoutManager = layoutManager
+        mBinding.recyclerView.adapter = LibraryPlaylistAdapter(requireContext())
+
+        setUpPlaylists()
+
     }
 
     companion object {
@@ -30,6 +56,84 @@ class LibraryFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             id = it.getInt("id")
+        }
+    }
+
+
+    private fun setUpPlaylists() {
+        val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        val homeService = retrofit.create(HomeService::class.java)
+
+        lifecycleScope.launch {
+            try {
+                val response = homeService.getUserPlaylists(id)
+                withContext(Dispatchers.Main) {
+                    mBinding.progressBar.visibility = View.GONE
+                }
+                val result = response.playlists
+                // Replace _ with space and first letter to upper case
+                result.forEach {
+                    it.titulo = it.titulo.replace("_", " ").replaceFirstChar { char ->
+                        if (char.isLowerCase()) char.titlecase(
+                            java.util.Locale.getDefault()
+                        ) else char.toString()
+                    }
+                }
+                if (result.isNotEmpty()) {
+                    val playlistsSearchAdapter = mBinding.recyclerView.adapter as LibraryPlaylistAdapter
+                    playlistsSearchAdapter.submitList(result)
+                }
+            } catch (e: Exception) {
+                (e as? HttpException)?.let {
+                    when (it.code()) {
+                        400 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en la petición",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+
+                        404 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "No se encontraron playlists",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+
+                        500 -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error en el servidor",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+
+                        else -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error desconocido",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mBinding.progressBar.visibility = View.GONE
+                            }
+                        }
+
+                    }
+                }
+            }
         }
     }
 }
