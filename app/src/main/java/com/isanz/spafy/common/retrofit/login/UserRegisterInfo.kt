@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.isanz.spafy.common.utils.Constants
 
 class UserRegisterInfo(
-    @SerializedName("username") val username: String,
+    @SerializedName("userame") val username: String,
     @SerializedName("password") val password: String,
     @SerializedName("email") val email: String,
     @SerializedName("genero") val gender: String,

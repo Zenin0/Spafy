@@ -40,7 +40,7 @@ class SongListAdapter(private val context: Context, private val listener: IOnIte
             "${cancion.duracion / 60}:${cancion.duracion % 60}"
         }
         holder.canciones.text = duracion
-        setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
+        setImage(holder.imageView)
         holder.itemView.setOnLongClickListener() {
             listener.onLongItemClick(cancion)
             true
@@ -57,7 +57,8 @@ class SongListAdapter(private val context: Context, private val listener: IOnIte
         }
     }
 
-    private fun setImage(view: ImageView, uri: String) {
+    private fun setImage(view: ImageView) {
+        val uri = Constants.IMAGES.random()
         Glide.with(context).load(uri).transform(CircleCrop()).into(view)
     }
 

@@ -43,7 +43,7 @@ class SearchListAdapter(private val context: Context, private val listener: IOnI
         holder.itemView.setOnClickListener {
             listener.onItemClick(cancion)
         }
-        setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
+        setImage(holder.imageView)
     }
 
     class CancionDiffCallback : DiffUtil.ItemCallback<Cancion>() {
@@ -56,7 +56,8 @@ class SearchListAdapter(private val context: Context, private val listener: IOnI
         }
     }
 
-    private fun setImage(view: ImageView, uri: String) {
+    private fun setImage(view: ImageView) {
+        val uri = Constants.IMAGES.random()
         Glide.with(context).load(uri).transform(CircleCrop()).into(view)
     }
 
