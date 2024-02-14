@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.isanz.spafy.R
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
@@ -39,7 +40,7 @@ class AddToPlaylistAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val playList = getItem(position)
         holder.tittlePlaylist.text = playList.titulo
-        setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
+        setImage(holder.imageView)
 
         // Set an OnClickListener on the ViewHolder's itemView
         holder.itemView.setOnClickListener {
@@ -57,7 +58,8 @@ class AddToPlaylistAdapter(
         }
     }
 
-    private fun setImage(view: ImageView, uri: String) {
-        Glide.with(context).load(uri).transform().into(view)
+    private fun setImage(view: ImageView) {
+        val uri = Constants.IMAGES.random()
+        Glide.with(context).load(uri).transform(CircleCrop()).into(view)
     }
 }

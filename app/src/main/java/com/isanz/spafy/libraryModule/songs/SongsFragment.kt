@@ -66,7 +66,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
 
     private fun setUpView() {
         mBinding.progressBar.visibility = View.VISIBLE
-        setImage(mBinding.ivPlaylist, Constants.IMAGE_PLAYLIST_URL)
+        setImage(mBinding.ivPlaylist)
         // Remove _ and first letter to uppercase
         val tittle = playlist.titulo.replace("_", " ").lowercase().replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(
@@ -236,7 +236,8 @@ class SongsFragment : Fragment(), IOnItemClickListener {
             .show()
     }
 
-    private fun setImage(view: ImageView, uri: String) {
+    private fun setImage(view: ImageView) {
+        val uri = Constants.IMAGES.random()
         Glide.with(requireContext()).load(uri).transform(CircleCrop()).into(view)
     }
 

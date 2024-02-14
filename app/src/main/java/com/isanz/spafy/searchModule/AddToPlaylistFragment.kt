@@ -60,7 +60,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
     }
 
     override fun onItemClick(cancion: Cancion) {
-        TODO("Not yet implemented")
+        // Not used
     }
 
     override fun onItemClick(playlist: PlayList) {
@@ -145,16 +145,15 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                         }
                     }
                 }
-            }
-            .show()
+            }.show()
     }
 
-    override fun onLongItemClick(cancion: PlayList) {
-        TODO("Not yet implemented")
+    override fun onLongItemClick(playlist: PlayList) {
+        // Not used
     }
 
     override fun onLongItemClick(cancion: Cancion) {
-        TODO("Not yet implemented")
+        // Not used
     }
 
     private fun setupRecyclerView() {
@@ -177,8 +176,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
-                val result = response.playlists
-                // Replace _ with space and first letter to upper case
+                val result = response.body() ?: listOf()
                 result.forEach {
                     it.titulo = it.titulo.replace("_", " ").replaceFirstChar { char ->
                         if (char.isLowerCase()) char.titlecase(
@@ -235,7 +233,6 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                                 mBinding.progressBar.visibility = View.GONE
                             }
                         }
-
                     }
                 }
             }

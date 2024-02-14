@@ -6,3 +6,4 @@ data class Album(
     @SerializedName("id") var id: Int,
     @SerializedName("titulo") var titulo: String
 )
+

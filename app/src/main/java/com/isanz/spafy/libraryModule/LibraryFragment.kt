@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +30,9 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
 
     private var userId: Int = 0
     private lateinit var mBinding: FragmentLibraryBinding
+    private lateinit var libraryPlaylistAdapter: LibraryPlaylistAdapter
+    private var playlists: List<PlayList> = listOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,11 +44,11 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
     }
 
     private fun setUpRecyclerView() {
-        mBinding.recyclerView.adapter = LibraryPlaylistAdapter(requireContext(), this)
+        libraryPlaylistAdapter = LibraryPlaylistAdapter(requireContext(), this)
+        mBinding.recyclerView.adapter = libraryPlaylistAdapter
         mBinding.progressBar.visibility = View.VISIBLE
         val layoutManager = LinearLayoutManager(requireContext())
         mBinding.recyclerView.layoutManager = layoutManager
-
         setUpPlaylists()
     }
 
@@ -63,6 +67,36 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
         }
     }
 
+    private fun setupSearchView() {
+        mBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val filteredList =
+                    playlists.filter { it.titulo.contains(newText ?: "", ignoreCase = true) }
+                libraryPlaylistAdapter.submitList(filteredList)
+
+                // Assuming mBinding.textView is the TextView you want to hide
+                if (newText.isNullOrEmpty()) {
+                    mBinding.title.visibility = View.VISIBLE
+                } else {
+                    mBinding.title.visibility = View.INVISIBLE
+                }
+
+                return true
+            }
+        })
+        mBinding.searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                mBinding.title.visibility = View.INVISIBLE
+            } else {
+                mBinding.title.visibility = View.VISIBLE
+            }
+        }
+    }
+
 
     private fun setUpPlaylists() {
         val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
@@ -75,8 +109,7 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
-                val result = response.playlists
-                // Replace _ with space and first letter to upper case
+                val result = response.body() ?: listOf()
                 result.forEach {
                     it.titulo = it.titulo.replace("_", " ").replaceFirstChar { char ->
                         if (char.isLowerCase()) char.titlecase(
@@ -85,8 +118,10 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
                     }
                 }
                 if (result.isNotEmpty()) {
-                    val playlistsSearchAdapter = mBinding.recyclerView.adapter as LibraryPlaylistAdapter
-                    playlistsSearchAdapter.submitList(result)
+                    playlists = result
+                    val playlistLibrary = mBinding.recyclerView.adapter as LibraryPlaylistAdapter
+                    playlistLibrary.submitList(result)
+                    setupSearchView()
                 }
             } catch (e: Exception) {
                 (e as? HttpException)?.let {
@@ -134,15 +169,10 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
                                 mBinding.progressBar.visibility = View.GONE
                             }
                         }
-
                     }
                 }
             }
         }
-    }
-
-    override fun onItemClick(cancion: Cancion) {
-        TODO("Not yet implemented")
     }
 
 
@@ -180,7 +210,11 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
             .show()
     }
 
+    override fun onItemClick(cancion: Cancion) {
+        // Not used
+    }
+
     override fun onLongItemClick(cancion: Cancion) {
-        TODO("Not yet implemented")
+        // Not used
     }
 }

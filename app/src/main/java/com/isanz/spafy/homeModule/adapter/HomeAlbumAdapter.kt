@@ -36,7 +36,7 @@ class HomeAlbumAdapter(private val context: Context) :
         val album = getItem(position)
         holder.title.text = album.titulo
         holder.canciones.visibility = View.GONE
-        setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
+        setImage(holder.imageView)
     }
 
     class AlbumDiffCallback : DiffUtil.ItemCallback<Album>() {
@@ -49,7 +49,8 @@ class HomeAlbumAdapter(private val context: Context) :
         }
     }
 
-    private fun setImage(view: ImageView, uri: String) {
+    private fun setImage(view: ImageView) {
+        val uri = Constants.IMAGES.random()
         Glide.with(context).load(uri).transform(CircleCrop()).into(view)
     }
 }

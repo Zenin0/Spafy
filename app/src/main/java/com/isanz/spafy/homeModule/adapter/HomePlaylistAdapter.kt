@@ -35,7 +35,7 @@ class HomePlaylistAdapter(private val context: Context) :
         val playList = getItem(position)
         holder.title.text = playList.titulo
         "Canciones: ${playList.numeroCanciones}".also { holder.canciones.text = it }
-        setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
+        setImage(holder.imageView)
     }
 
     class PlayListDiffCallback : DiffUtil.ItemCallback<PlayList>() {
@@ -48,7 +48,8 @@ class HomePlaylistAdapter(private val context: Context) :
         }
     }
 
-    private fun setImage(view: ImageView, uri: String) {
+    private fun setImage(view: ImageView) {
+        val uri = Constants.IMAGES.random()
         Glide.with(context).load(uri).transform(CircleCrop()).into(view)
     }
 }

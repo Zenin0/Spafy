@@ -93,7 +93,6 @@ class HomeFragment : Fragment() {
                     mBinding.progressBar.visibility = View.GONE
                 }
                 val result = response.albums
-                // Replace _ with space and first letter to upper case
                 result.forEach {
                     it.titulo = it.titulo.replace("_", " ").replaceFirstChar { char ->
                         if (char.isLowerCase()) char.titlecase(
@@ -169,8 +168,7 @@ class HomeFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
-                val result = response.playlists
-                // Replace _ with space and first letter to upper case
+                val result = response.body()?: listOf()
                 result.forEach {
                     it.titulo = it.titulo.replace("_", " ").replaceFirstChar { char ->
                         if (char.isLowerCase()) char.titlecase(
@@ -247,7 +245,6 @@ class HomeFragment : Fragment() {
                     mBinding.progressBar.visibility = View.GONE
                 }
                 val result = response.podcast
-                // Replace _ with space and first letter to upper case
                 result.forEach {
                     it.titulo = it.titulo.replace("_", " ").replaceFirstChar { char ->
                         if (char.isLowerCase()) char.titlecase(

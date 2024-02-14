@@ -58,10 +58,7 @@ class SearchFragment : Fragment(), IOnItemClickListener {
 
 
     override fun onItemClick(cancion: Cancion) {
-        // Create new fragment and bundle
         val addPlaylist = AddToPlaylistFragment.newInstance(cancion.id, idUsuario)
-
-        // Add the fragment on top of the current one
         val transaction = parentFragmentManager.beginTransaction()
         transaction.replace(R.id.container, addPlaylist)
         transaction.addToBackStack(null)
@@ -69,15 +66,15 @@ class SearchFragment : Fragment(), IOnItemClickListener {
     }
 
     override fun onItemClick(playlist: PlayList) {
-        TODO("Not yet implemented")
+        // Not used
     }
 
     override fun onLongItemClick(playlist: PlayList) {
-        TODO("Not yet implemented")
+        // Not used
     }
 
     override fun onLongItemClick(cancion: Cancion) {
-        TODO("Not yet implemented")
+        // Not used
     }
 
 

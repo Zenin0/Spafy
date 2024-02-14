@@ -34,7 +34,7 @@ class HomePodcastAdapter(private val context: Context) :
         val podcast = getItem(position)
         holder.title.text = podcast.titulo
         holder.canciones.visibility = View.GONE
-        setImage(holder.imageView, Constants.IMAGE_PODCAST_URL)
+        setImage(holder.imageView)
     }
 
     class PodcastDiffCallback : DiffUtil.ItemCallback<Podcast>() {
@@ -47,7 +47,8 @@ class HomePodcastAdapter(private val context: Context) :
         }
     }
 
-    private fun setImage(view: ImageView, uri: String) {
+    private fun setImage(view: ImageView) {
+        val uri = Constants.IMAGES.random()
         Glide.with(context).load(uri).transform(CircleCrop()).into(view)
     }
 }

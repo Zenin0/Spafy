@@ -1,6 +1,7 @@
 package com.isanz.spafy.libraryModule
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,18 +54,18 @@ class CreatePlaylistFragment : Fragment() {
             val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create()).build()
             val homeService = retrofit.create(LibraryService::class.java)
-
             lifecycleScope.launch {
                 try {
                     val response = homeService.createPlaylist(PostPlaylist(name, userId))
+                    Log.i("CreatePlaylistFragment", "Response: $response")
                     withContext(Dispatchers.Main) {
+                        if (response.isSuccessful) {
+                            val fragment = LibraryFragment.newInstance(userId)
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragmentCreatePlaylist, fragment).commit()
+                        }
                     }
-                    if (response.isSuccessful) {
-                        val fragment = LibraryFragment.newInstance(userId)
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragmentCreatePlaylist, fragment).commit()
 
-                    }
                 } catch (e: Exception) {
                     (e as? HttpException)?.let {
                         when (it.code()) {
@@ -77,7 +78,6 @@ class CreatePlaylistFragment : Fragment() {
                                     ).show()
                                 }
                             }
-
                             404 -> {
                                 withContext(Dispatchers.Main) {
                                     Toast.makeText(
@@ -87,13 +87,10 @@ class CreatePlaylistFragment : Fragment() {
                                     ).show()
                                 }
                             }
-
-
                         }
                     }
                 }
             }
         }
     }
-
 }

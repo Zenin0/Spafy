@@ -1,12 +1,14 @@
 package com.isanz.spafy.common.retrofit.home
 
+import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.utils.Constants
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface HomeService {
     @GET(Constants.BASE_URL + Constants.USER_PATH + "/{id}/" + Constants.PLAYLISTS_PATH)
-    suspend fun getUserPlaylists(@Path("id") id: Int): PlayListResponse
+    suspend fun getUserPlaylists(@Path("id") id: Int): Response<List<PlayList>>
     @GET(Constants.BASE_URL + Constants.USER_PATH + "/{id}/" + Constants.PODCAST_PATH)
     suspend fun getUserPodcast(@Path("id") id: Int): PodcastResponse
 

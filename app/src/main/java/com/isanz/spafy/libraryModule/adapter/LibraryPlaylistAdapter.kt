@@ -38,7 +38,7 @@ class LibraryPlaylistAdapter(
         val playList = getItem(position)
         holder.title.text = playList.titulo
         "Canciones: ${playList.numeroCanciones}".also { holder.canciones.text = it }
-        setImage(holder.imageView, Constants.IMAGE_PLAYLIST_URL)
+        setImage(holder.imageView)
         holder.itemView.setOnClickListener {
             listener.onItemClick(playList)
         }
@@ -58,7 +58,8 @@ class LibraryPlaylistAdapter(
         }
     }
 
-    private fun setImage(view: ImageView, uri: String) {
+    private fun setImage(view: ImageView) {
+        val uri = Constants.IMAGES.random()
         Glide.with(context).load(uri).transform(CircleCrop()).into(view)
     }
 

@@ -10,6 +10,6 @@ import retrofit2.http.POST
 interface LibraryService {
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.BASE_URL + Constants.PLAYLIST_PATH)
+    @POST(Constants.BASE_URL +  Constants.PLAYLISTS_PATH)
     suspend fun createPlaylist(@Body data: PostPlaylist) : Response<PlayList>
 }
