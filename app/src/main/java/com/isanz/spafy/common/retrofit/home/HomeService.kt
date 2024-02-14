@@ -15,5 +15,4 @@ interface HomeService {
     @GET(Constants.BASE_URL + Constants.USER_PATH + "/{id}/" + Constants.ALBUM_PATH)
     suspend fun getUserAlbums(@Path("id") id: Int): AlbumResponse
 
-
 }
