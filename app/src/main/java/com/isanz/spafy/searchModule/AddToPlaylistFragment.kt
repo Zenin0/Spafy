@@ -17,6 +17,7 @@ import com.isanz.spafy.common.retrofit.search.SearchService
 import com.isanz.spafy.common.utils.Constants
 import com.isanz.spafy.common.utils.IOnItemClickListener
 import com.isanz.spafy.databinding.FragmentAddToPlaylistBinding
+import com.isanz.spafy.homeModule.adapter.HomePlaylistAdapter
 import com.isanz.spafy.searchModule.adapter.AddToPlaylistAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +29,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
     private lateinit var mBinding: FragmentAddToPlaylistBinding
     private lateinit var addToPlayListAdapter: AddToPlaylistAdapter
+    private lateinit var homePlaylistAdapter: HomePlaylistAdapter
+
     private var idCancion: Int = 0
     private var idUsuario: Int = 0
 
@@ -37,6 +40,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
     ): View {
         mBinding = FragmentAddToPlaylistBinding.inflate(inflater, container, false)
         addToPlayListAdapter = AddToPlaylistAdapter(requireContext(), this)
+        homePlaylistAdapter = HomePlaylistAdapter(requireContext())
         setupRecyclerView()
         return mBinding.root
     }
@@ -84,11 +88,6 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                                 idCancion,
                                 idUsuario
                             )
-                        Log.i(
-                            "AddToPlaylistFragment",
-                            "onItemClick: $idCancion $idUsuario ${playlist.id}"
-                        )
-                        Log.i("AddToPlaylistFragment", "onItemClick: $response")
                         if (response.isSuccessful) {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
@@ -186,6 +185,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                 }
                 if (result.isNotEmpty()) {
                     addToPlayListAdapter.submitList(result)
+                    homePlaylistAdapter.submitList(result)
                 }
             } catch (e: Exception) {
                 (e as? HttpException)?.let {
