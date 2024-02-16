@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.isanz.spafy.R
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.home.HomeService
@@ -114,18 +115,7 @@ class HomeFragment : Fragment() {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en la petición",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                mBinding.progressBar.visibility = View.GONE
-                            }
-                        }
-
-                        404 -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "No se encontraron álbumes",
+                                    getString(R.string.request_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -136,7 +126,7 @@ class HomeFragment : Fragment() {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en el servidor",
+                                    getString(R.string.server_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -147,7 +137,7 @@ class HomeFragment : Fragment() {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error desconocido",
+                                    getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -193,18 +183,7 @@ class HomeFragment : Fragment() {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en la petición",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                mBinding.progressBar.visibility = View.GONE
-                            }
-                        }
-
-                        404 -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "No se encontraron playlists",
+                                    getString(R.string.request_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -215,7 +194,7 @@ class HomeFragment : Fragment() {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en el servidor",
+                                    getString(R.string.server_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -226,7 +205,7 @@ class HomeFragment : Fragment() {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error desconocido",
+                                    getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -272,17 +251,7 @@ class HomeFragment : Fragment() {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en la petición",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-
-                        404 -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "No se encontraron podcasts",
+                                    getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -292,7 +261,7 @@ class HomeFragment : Fragment() {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en el servidor",
+                                    getString(R.string.server_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -302,7 +271,7 @@ class HomeFragment : Fragment() {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error desconocido",
+                                    getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }

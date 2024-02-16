@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragmentAddToPlaylist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_dark_background"
     android:clickable="true"
     android:focusable="true"
-    android:background="@color/md_theme_dark_background"
     tools:context=".searchModule.AddToPlaylistFragment">
 
     <ImageButton
         android:id="@+id/ibBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="@dimen/common_padding_default"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/go_back"
         android:src="@drawable/ic_arrow_back_ios_new"
-        android:contentDescription="@string/go_back" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ProgressBar
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/_64dp"
+        android:layout_height="@dimen/_64dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/progressBar"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAddToPlaylist"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_0dp"
         android:layout_margin="@dimen/common_padding_default"
         android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@id/ibBack"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ibBack"
         tools:listitem="@layout/item_playlist_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

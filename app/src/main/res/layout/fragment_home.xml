@@ -9,9 +9,9 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center"/>
+        android:layout_width="@dimen/_64dp"
+        android:layout_height="@dimen/_64dp"
+        android:layout_gravity="center" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -26,16 +26,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/common_margin_default"
-                android:visibility="gone"
-                android:text="Your lists"
+                android:text="@string/your_lists"
                 android:textSize="24sp"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPlaylist"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/_0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tusPlaylist" />
@@ -46,17 +46,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:visibility="gone"
                 android:layout_margin="@dimen/common_margin_default"
-                android:text="Podcas you follow"
-                android:textSize="24sp"
+                android:text="@string/podcast_you_follow"
+                android:textSize="@dimen/tittle_size"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rvPlaylist" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPodcast"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/_64dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tusPodcasts" />
@@ -67,16 +67,16 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/common_margin_default"
 
+                android:text="@string/albums_you_follow"
+                android:textSize="@dimen/tittle_size"
                 android:visibility="gone"
-                android:text="Albums you follow"
-                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rvPodcast" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvAlbums"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/_0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tusAlbumes" />
