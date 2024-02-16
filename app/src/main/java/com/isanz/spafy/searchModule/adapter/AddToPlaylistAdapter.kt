@@ -60,6 +60,6 @@ class AddToPlaylistAdapter(
 
     private fun setImage(view: ImageView) {
         val uri = Constants.IMAGES.random()
-        Glide.with(context).load(uri).transform(CircleCrop()).into(view)
+        Glide.with(context).load(uri).into(view)
     }
 }

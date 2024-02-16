@@ -103,6 +103,9 @@ class HomeFragment : Fragment() {
                 if (result.isNotEmpty()) {
                     val albumHomeAdapter = mBinding.rvAlbums.adapter as HomeAlbumAdapter
                     albumHomeAdapter.submitList(result)
+                    mBinding.tusAlbumes.visibility = View.VISIBLE
+                } else {
+                    mBinding.tusAlbumes.visibility = View.GONE
                 }
             } catch (e: Exception) {
                 (e as? HttpException)?.let {
@@ -179,6 +182,9 @@ class HomeFragment : Fragment() {
                 if (result.isNotEmpty()) {
                     val playlistHomeAdapter = mBinding.rvPlaylist.adapter as HomePlaylistAdapter
                     playlistHomeAdapter.submitList(result)
+                    mBinding.tusPlaylist.visibility = View.VISIBLE
+                } else {
+                    mBinding.tusPlaylist.visibility = View.GONE
                 }
             } catch (e: Exception) {
                 (e as? HttpException)?.let {
@@ -255,6 +261,9 @@ class HomeFragment : Fragment() {
                 if (result.isNotEmpty()) {
                     val podcastHomeAdapter = mBinding.rvPodcast.adapter as HomePodcastAdapter
                     podcastHomeAdapter.submitList(result)
+                    mBinding.tusPodcasts.visibility = View.VISIBLE
+                } else {
+                    mBinding.tusPodcasts.visibility = View.GONE
                 }
             } catch (e: Exception) {
                 (e as? HttpException)?.let {

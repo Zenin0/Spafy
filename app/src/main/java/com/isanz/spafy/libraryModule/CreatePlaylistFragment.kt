@@ -92,5 +92,12 @@ class CreatePlaylistFragment : Fragment() {
                 }
             }
         }
+        mBinding.ibBack.setOnClickListener(
+            onBackPressed()
+        )
+    }
+
+    private fun onBackPressed() = View.OnClickListener {
+        requireActivity().supportFragmentManager.popBackStack()
     }
 }

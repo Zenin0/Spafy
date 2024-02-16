@@ -21,7 +21,7 @@ class HomePodcastAdapter(private val context: Context) :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         val title: TextView = itemView.findViewById(R.id.title)
-        val canciones: TextView = itemView.findViewById(R.id.numCanciones)
+        val desc: TextView = itemView.findViewById(R.id.subTitle)
 
     }
 
@@ -33,7 +33,7 @@ class HomePodcastAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val podcast = getItem(position)
         holder.title.text = podcast.titulo
-        holder.canciones.visibility = View.GONE
+        holder.desc.text = context.getString(R.string.podcast)
         setImage(holder.imageView)
     }
 
@@ -49,6 +49,6 @@ class HomePodcastAdapter(private val context: Context) :
 
     private fun setImage(view: ImageView) {
         val uri = Constants.IMAGES.random()
-        Glide.with(context).load(uri).transform(CircleCrop()).into(view)
+        Glide.with(context).load(uri).into(view)
     }
 }
