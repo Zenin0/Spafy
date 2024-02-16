@@ -35,4 +35,11 @@
     <string name="num_canciones">0</string>
     <string name="playlist_name">Playlist name</string>
     <string name="create_playlist">Create playlist</string>
+    <string name="go_back">Go back</string>
+    <string name="logout">Logout</string>
+    <string name="close_account">Close account</string>
+    <string name="playlist">List</string>
+    <string name="album">Album</string>
+    <string name="podcast">Podcast</string>
+    <string name="desc">Description</string>
 </resources>

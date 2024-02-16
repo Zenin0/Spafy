@@ -35,4 +35,6 @@
     <string name="num_canciones">0</string>
     <string name="playlist_name">Playlist name</string>
     <string name="create_playlist">Create playlist</string>
+    <string name="go_back">Go Back</string>
+    <string name="close_account">Close account</string>
 </resources>

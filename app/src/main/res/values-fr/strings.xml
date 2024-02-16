@@ -35,4 +35,5 @@
     <string name="num_canciones">0 chansons</string>
     <string name="playlist_name">Nom de la playlist</string>
     <string name="create_playlist">Créer une playlist</string>
+    <string name="go_back">Retour</string>
 </resources>

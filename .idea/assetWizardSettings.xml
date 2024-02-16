@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/home/isaac/.local/share/JetBrains/Toolbox/apps/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/image/baseline_image_24.xml" />
+                                      <entry key="url" value="jar:file:/home/isaac/.local/share/JetBrains/Toolbox/apps/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/person_remove/baseline_person_remove_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_image" />
+                            <entry key="outputName" value="ic_person_remove" />
                           </map>
                         </option>
                       </PersistentState>

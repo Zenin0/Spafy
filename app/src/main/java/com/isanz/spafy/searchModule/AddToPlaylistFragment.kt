@@ -42,7 +42,18 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
         addToPlayListAdapter = AddToPlaylistAdapter(requireContext(), this)
         homePlaylistAdapter = HomePlaylistAdapter(requireContext())
         setupRecyclerView()
+        setUpButtons()
         return mBinding.root
+    }
+
+    private fun setUpButtons() {
+        mBinding.ibBack.setOnClickListener(
+            onBackPressed()
+        )
+    }
+
+    private fun onBackPressed() = View.OnClickListener {
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,10 +72,6 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                 putInt("userId", idUsuario)
             }
         }
-    }
-
-    override fun onItemClick(cancion: Cancion) {
-        // Not used
     }
 
     override fun onItemClick(playlist: PlayList) {
@@ -150,6 +157,11 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
     override fun onLongItemClick(playlist: PlayList) {
         // Not used
     }
+
+    override fun onItemClick(cancion: Cancion) {
+        // Not used
+    }
+
 
     override fun onLongItemClick(cancion: Cancion) {
         // Not used

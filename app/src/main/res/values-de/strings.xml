@@ -35,4 +35,5 @@
     <string name="num_canciones">0 Lieder</string>
     <string name="playlist_name">Name der Playlist</string>
     <string name="create_playlist">Playlist erstellen</string>
+    <string name="go_back">Zurück</string>
 </resources>
