@@ -57,7 +57,6 @@ class CreatePlaylistFragment : Fragment() {
             lifecycleScope.launch {
                 try {
                     val response = homeService.createPlaylist(PostPlaylist(name, userId))
-                    Log.i("CreatePlaylistFragment", "Response: $response")
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
                             val fragment = LibraryFragment.newInstance(userId)
@@ -73,16 +72,25 @@ class CreatePlaylistFragment : Fragment() {
                                 withContext(Dispatchers.Main) {
                                     Toast.makeText(
                                         requireContext(),
-                                        "Error en la petición",
+                                        getString(R.string.request_error),
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
                             }
-                            404 -> {
+                            500 -> {
                                 withContext(Dispatchers.Main) {
                                     Toast.makeText(
                                         requireContext(),
-                                        "No se ha podido crear la playlist",
+                                        getString(R.string.server_error),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                            else -> {
+                                withContext(Dispatchers.Main) {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        getString(R.string.unknown_error),
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }

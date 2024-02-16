@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -88,7 +87,6 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
             try {
                 val response = libraryService.getUser(userId)
                 val user = response.body()
-                Log.i("LibraryFragment", "user: $user")
                 val headerView = mBinding.navView.getHeaderView(0)
                 val tvUsername = headerView.findViewById<TextView>(R.id.tvUsername)
                 val tvEmail = headerView.findViewById<TextView>(R.id.tvEmail)
@@ -104,15 +102,7 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
                         400 -> {
                             Toast.makeText(
                                 requireContext(),
-                                "Error en la petición",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-
-                        404 -> {
-                            Toast.makeText(
-                                requireContext(),
-                                "No se encontraron playlists",
+                                getString(R.string.request_error),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -120,7 +110,7 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
                         500 -> {
                             Toast.makeText(
                                 requireContext(),
-                                "Error en el servidor",
+                                getString(R.string.server_error),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -128,17 +118,14 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
                         else -> {
                             Toast.makeText(
                                 requireContext(),
-                                "Error desconocido",
+                                getString(R.string.unknown_error),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
                 }
             }
-
-
         }
-
     }
 
     private fun setupSearchView() {
@@ -204,18 +191,7 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en la petición",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                mBinding.progressBar.visibility = View.GONE
-                            }
-                        }
-
-                        404 -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "No se encontraron playlists",
+                                    getString(R.string.request_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -226,7 +202,7 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en el servidor",
+                                    getString(R.string.server_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -237,7 +213,7 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error desconocido",
+                                    getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -268,90 +244,7 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
             requireActivity().finish()
             true
         }
-        mBinding.navView.menu.findItem(R.id.nav_close_account).setOnMenuItemClickListener {
-            closeAccount()
-            true
-        }
 
-    }
-
-    private fun closeAccount() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Close Account")
-            .setMessage("Are you sure you want to close your account?")
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setPositiveButton("Close") { dialog, _ ->
-                val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create()).build()
-                val libraryService = retrofit.create(LibraryService::class.java)
-
-                lifecycleScope.launch {
-                    try {
-                        val response = libraryService.closeAccount(userId)
-                        withContext(Dispatchers.Main) {
-                            if (response.isSuccessful) {
-                                val intent = Intent(requireContext(), LoginActivity::class.java)
-                                startActivity(intent)
-                                requireActivity().finish()
-                            } else {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Error al cerrar la cuenta",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                    } catch (e: Exception) {
-                        (e as? HttpException)?.let {
-                            when (it.code()) {
-                                400 -> {
-                                    withContext(Dispatchers.Main) {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "Error en la petición",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-
-                                404 -> {
-                                    withContext(Dispatchers.Main) {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "No se encontraron playlists",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-
-                                500 -> {
-                                    withContext(Dispatchers.Main) {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "Error en el servidor",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-
-                                else -> {
-                                    withContext(Dispatchers.Main) {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "Error desconocido",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                dialog.dismiss()
-            }
-            .show()
     }
 
 
@@ -365,12 +258,12 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
 
     override fun onLongItemClick(playlist: PlayList) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Remove Playlist")
-            .setMessage("Are you sure you want to remove this playlist?")
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setTitle(getString(R.string.remove_playlist))
+            .setMessage(getString(R.string.remove_playlisy_confirm))
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton("Remove") { dialog, _ ->
+            .setPositiveButton(getString(R.string.remove)) { dialog, _ ->
                 val adapter = mBinding.recyclerView.adapter as LibraryPlaylistAdapter
                 adapter.removePlaylist(playlist)
                 dialog.dismiss()
@@ -389,7 +282,6 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
     private fun setImage(view: ImageView) {
         val uri = Constants.IMAGES.random()
         Glide.with(requireContext()).load(uri).circleCrop().into(view)
-        Log.i("LibraryFragment", "uri: $uri")
         Glide.with(requireContext()).load(uri).circleCrop().into(mBinding.menu)
     }
 }

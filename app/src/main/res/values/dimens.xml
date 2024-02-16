@@ -4,4 +4,10 @@
     <dimen name="main_textfield_width">256dp</dimen>
     <dimen name="common_margin_default">8dp</dimen>
     <dimen name="default_corner_raidus">16dp</dimen>
+    <dimen name="_0dp">0dp</dimen>
+    <dimen name="_64dp">64dp</dimen>
+    <dimen name="tittle_size">24sp</dimen>
+    <dimen name="_128dp">128dp</dimen>
+    <dimen name="playlist_name">16sp</dimen>
+    <dimen name="_156dp">156dp</dimen>
 </resources>

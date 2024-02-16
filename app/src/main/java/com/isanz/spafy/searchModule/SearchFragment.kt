@@ -127,18 +127,7 @@ class SearchFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en la petición",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                mBinding.progressBar.visibility = View.GONE
-                            }
-                        }
-
-                        404 -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "No se encontraron canciones",
+                                    getString(R.string.request_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -149,7 +138,7 @@ class SearchFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en el servidor",
+                                    getString(R.string.server_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -160,7 +149,7 @@ class SearchFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error desconocido",
+                                    getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE

@@ -14,9 +14,10 @@
 
         <ImageView
             android:id="@+id/ivPlaylist"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:layout_width="@dimen/_128dp"
+            android:layout_height="@dimen/_128dp"
             android:layout_marginTop="64dp"
+            android:contentDescription="@string/playlist_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +26,7 @@
             android:id="@+id/tvPlaylistTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/common_padding_default"
             android:text="@string/playlist_tittle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,9 +35,21 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="@dimen/_64dp"
+            android:layout_height="@dimen/_64dp"
             android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNoSongs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_songs"
+            android:textSize="@dimen/tittle_size"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +58,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSongs"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/_0dp"
             android:layout_margin="@dimen/common_padding_default"
             android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"

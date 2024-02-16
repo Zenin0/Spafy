@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/ivProfile"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="@dimen/_128dp"
+        android:layout_height="@dimen/_128dp"
+        android:layout_marginTop="@dimen/_64dp"
         android:src="@drawable/ic_person"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +18,7 @@
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/common_padding_default"
         android:text="@string/hint_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,14 +28,11 @@
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/common_padding_default"
         android:text="@string/hint_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvUsername" />
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

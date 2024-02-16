@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.isanz.spafy.R
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.search.SearchService
@@ -87,11 +88,24 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                 val response = searchService.getCancionesPlaylist(userId)
                 val result = response.body() ?: emptyList()
                 withContext(Dispatchers.Main) {
-                    mBinding.progressBar.visibility = View.GONE
-                    if (result.isNotEmpty()) {
+                    if (response.isSuccessful && result.isNotEmpty()) {
                         val cancionesSearchAdapter = mBinding.rvSongs.adapter as SongListAdapter
                         cancionesSearchAdapter.submitList(result)
+                    } else if (response.isSuccessful && result.isEmpty()) {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.request_error),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        mBinding.tvNoSongs.visibility = View.VISIBLE
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.request_error),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+                    mBinding.progressBar.visibility = View.GONE
                 }
 
             } catch (e: Exception) {
@@ -101,18 +115,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en la petición",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                mBinding.progressBar.visibility = View.GONE
-                            }
-                        }
-
-                        404 -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "No se encontraron canciones",
+                                    getString(R.string.request_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -123,7 +126,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en el servidor",
+                                    getString(R.string.server_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -134,7 +137,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error desconocido",
+                                    getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -168,17 +171,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en la petición",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-
-                        404 -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "No se encontró la playlist",
+                                    getString(R.string.request_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -188,7 +181,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en el servidor",
+                                    getString(R.string.server_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -198,7 +191,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error desconocido",
+                                    getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -210,7 +203,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
     }
 
     override fun onItemClick(cancion: Cancion) {
-        Toast.makeText(requireContext(), "Cancion: ${cancion.titulo}", Toast.LENGTH_SHORT).show()
+        TODO("Not yet implemented")
     }
 
     override fun onItemClick(playlist: PlayList) {
@@ -222,13 +215,13 @@ class SongsFragment : Fragment(), IOnItemClickListener {
     }
 
     override fun onLongItemClick(cancion: Cancion) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Remove Song")
-            .setMessage("Are you sure you want to remove this song?")
-            .setNegativeButton("Cancel") { dialog, _ ->
+         MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.remove_song))
+            .setMessage(getString(R.string.remove_song_confirmation))
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton("Remove") { dialog, _ ->
+            .setPositiveButton(getString(R.string.remove)) { dialog, _ ->
                 val adapter = mBinding.rvSongs.adapter as SongListAdapter
                 adapter.removeSong(cancion)
                 dialog.dismiss()
