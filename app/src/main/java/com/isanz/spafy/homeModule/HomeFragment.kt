@@ -18,6 +18,7 @@ import com.isanz.spafy.databinding.FragmentHomeBinding
 import com.isanz.spafy.homeModule.adapter.HomeAlbumAdapter
 import com.isanz.spafy.homeModule.adapter.HomePlaylistAdapter
 import com.isanz.spafy.homeModule.adapter.HomePodcastAdapter
+import com.isanz.spafy.libraryModule.songs.SongsFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,7 +26,7 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), IOnItemClickListener {
 
     private lateinit var mBinding: FragmentHomeBinding
     private var userId: Int = 0
@@ -56,7 +57,7 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         mBinding.progressBar.visibility = View.VISIBLE
 
-        val playlistHomeAdapter = HomePlaylistAdapter(this.requireContext())
+        val playlistHomeAdapter = HomePlaylistAdapter(this.requireContext(), this)
         val podcastHomeAdapter = HomePodcastAdapter(this.requireContext())
         val albumHomeAdapter = HomeAlbumAdapter(this.requireContext())
 
@@ -280,5 +281,25 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onItemClick(cancion: Cancion) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemClick(playlist: PlayList) {
+        val songsFragment = SongsFragment.newInstance(playlist.id)
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_home, songsFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    override fun onLongItemClick(playlist: PlayList) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onLongItemClick(cancion: Cancion) {
+        TODO("Not yet implemented")
     }
 }

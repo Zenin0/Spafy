@@ -40,7 +40,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
     ): View {
         mBinding = FragmentAddToPlaylistBinding.inflate(inflater, container, false)
         addToPlayListAdapter = AddToPlaylistAdapter(requireContext(), this)
-        homePlaylistAdapter = HomePlaylistAdapter(requireContext())
+        homePlaylistAdapter = HomePlaylistAdapter(requireContext(), this)
         setupRecyclerView()
         setUpButtons()
         return mBinding.root

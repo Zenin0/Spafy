@@ -51,6 +51,10 @@ class CreatePlaylistFragment : Fragment() {
     private fun seUpButtons() {
         mBinding.btnCreate.setOnClickListener {
             val name = mBinding.etName.text.toString()
+            if (name.isEmpty()) {
+                Toast.makeText(requireContext(), "Name field cannot be empty", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create()).build()
             val homeService = retrofit.create(LibraryService::class.java)
@@ -62,6 +66,7 @@ class CreatePlaylistFragment : Fragment() {
                             val fragment = LibraryFragment.newInstance(userId)
                             requireActivity().supportFragmentManager.beginTransaction()
                                 .replace(R.id.fragmentCreatePlaylist, fragment).commit()
+                            requireActivity().supportFragmentManager.popBackStack()
                         }
                     }
 

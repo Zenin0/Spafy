@@ -37,10 +37,10 @@ class SongsFragment : Fragment(), IOnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         mBinding = FragmentSongsBinding.inflate(inflater, container, false)
         setUpRecyclerView()
         return mBinding.root
+
     }
 
     companion object {
@@ -63,6 +63,12 @@ class SongsFragment : Fragment(), IOnItemClickListener {
         mBinding.rvSongs.layoutManager = LinearLayoutManager(requireContext())
         setUpCanciones()
         getPlaylist()
+        setUpButtons()
+
+    }
+
+    private fun setUpButtons() {
+        mBinding.ibBack.setOnClickListener(onBackPressed())
     }
 
     private fun setUpView() {
@@ -91,11 +97,14 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                     if (response.isSuccessful && result.isNotEmpty()) {
                         val cancionesSearchAdapter = mBinding.rvSongs.adapter as SongListAdapter
                         cancionesSearchAdapter.submitList(result)
+                        mBinding.tvNoSongs.visibility = View.GONE
+
                     } else if (response.isSuccessful && result.isEmpty()) {
                         Toast.makeText(
                             requireContext(),
-                            getString(R.string.request_error),
+                            getString(R.string.no_songs),
                             Toast.LENGTH_SHORT
+
                         ).show()
                         mBinding.tvNoSongs.visibility = View.VISIBLE
                     } else {
@@ -104,6 +113,8 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                             getString(R.string.request_error),
                             Toast.LENGTH_SHORT
                         ).show()
+                        mBinding.tvNoSongs.visibility = View.VISIBLE
+
                     }
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -118,6 +129,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                                     getString(R.string.request_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                mBinding.tvNoSongs.visibility = View.VISIBLE
                                 mBinding.progressBar.visibility = View.GONE
                             }
                         }
@@ -129,6 +141,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                                     getString(R.string.server_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                mBinding.tvNoSongs.visibility = View.VISIBLE
                                 mBinding.progressBar.visibility = View.GONE
                             }
                         }
@@ -140,6 +153,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                                     getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                mBinding.tvNoSongs.visibility = View.VISIBLE
                                 mBinding.progressBar.visibility = View.GONE
                             }
                         }
@@ -174,6 +188,8 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                                     getString(R.string.request_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                mBinding.tvNoSongs.visibility = View.VISIBLE
+                                mBinding.progressBar.visibility = View.GONE
                             }
                         }
 
@@ -184,6 +200,8 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                                     getString(R.string.server_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                mBinding.tvNoSongs.visibility = View.VISIBLE
+                                mBinding.progressBar.visibility = View.GONE
                             }
                         }
 
@@ -194,6 +212,8 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                                     getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                mBinding.tvNoSongs.visibility = View.VISIBLE
+                                mBinding.progressBar.visibility = View.GONE
                             }
                         }
                     }
@@ -215,7 +235,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
     }
 
     override fun onLongItemClick(cancion: Cancion) {
-         MaterialAlertDialogBuilder(requireContext())
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.remove_song))
             .setMessage(getString(R.string.remove_song_confirmation))
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
@@ -227,6 +247,10 @@ class SongsFragment : Fragment(), IOnItemClickListener {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun onBackPressed() = View.OnClickListener {
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     private fun setImage(view: ImageView) {
