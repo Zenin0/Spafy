@@ -42,7 +42,7 @@
     <string name="album">Album</string>
     <string name="podcast">Podcast</string>
     <string name="desc">Description</string>
-    <string name="no_songs">Any songs found</string>
+    <string name="no_songs">No songs found</string>
     <string name="request_error">Request Error</string>
     <string name="server_error">Error on the server</string>
     <string name="unknown_error">Unknown error</string>

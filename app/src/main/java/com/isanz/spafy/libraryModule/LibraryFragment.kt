@@ -231,9 +231,9 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
             val createPlaylistFragment = CreatePlaylistFragment.newInstance(userId)
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.drawer_layout, createPlaylistFragment)
-
             transaction.addToBackStack(null)
             transaction.commit()
+
         }
         mBinding.menu.setOnClickListener {
             mBinding.drawerLayout.openDrawer(GravityCompat.START)

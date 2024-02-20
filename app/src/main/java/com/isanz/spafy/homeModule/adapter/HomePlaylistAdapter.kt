@@ -15,8 +15,9 @@ import com.isanz.spafy.R
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.utils.Constants
+import com.isanz.spafy.common.utils.IOnItemClickListener
 
-class HomePlaylistAdapter(private val context: Context) :
+class HomePlaylistAdapter(private val context: Context, private val listener: IOnItemClickListener):
     ListAdapter<PlayList, HomePlaylistAdapter.ViewHolder>(PlayListDiffCallback()) {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,6 +36,9 @@ class HomePlaylistAdapter(private val context: Context) :
         val playList = getItem(position)
         holder.title.text = playList.titulo
         holder.desc.text = context.getString(R.string.playlist)
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(playList)
+        }
         setImage(holder.imageView)
     }
 

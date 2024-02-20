@@ -5,7 +5,6 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/common_padding_default"
     tools:context=".searchModule.SearchFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
