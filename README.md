@@ -44,12 +44,13 @@
 
 ## Acerca del Proyecto
 
-Spafy es una aplicación de música que te permite escuchar tus canciones favoritas, crear listas de reproducción y mucho más.
-
+Spafy es una aplicación de música que te permite escuchar tus canciones favoritas, crear listas de
+reproducción y mucho más.
 
 ### Construido con
 
-Este código estará creado con `Kotlin` y `XML` para el desarrollo principal de la aplicación, `PHP` para la gestión de la base
+Este código estará creado con `Kotlin` y `XML` para el desarrollo principal de la aplicación, `PHP`
+para la gestión de la base
 de datos, y `Symfony` para la creación de la API.
 
 * ![Kotlin](https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&logo=kotlin&logoColor=white)
@@ -63,8 +64,48 @@ de datos, y `Symfony` para la creación de la API.
 
 ### Ventana de Registro
 
+<p align="center">
+  <img src="./Images/Register.png" alt="Register" width="500" height="500">
 
 ### Ventana de Login
+
+<p align="center">
+  <img src="./Images/Login.png" alt="Login" width="464" height="945">
+
+### Ventana de Home
+
+<p align="center">
+  <img src="./Images/Home.png" alt="Home" width="464" height="945">
+
+### Ventana de Search
+
+<p align="center">
+  <img src="./Images/Search.png" alt="Search" width="464" height="945">
+
+### Ventana de Library
+
+<p align="center">
+  <img src="./Images/Library.png" alt="Library" width="464" height="945">
+
+### Ventana de Songs
+
+<p align="center">
+  <img src="./Images/Songs.png" alt="Songs" width="464" height="945">
+
+### Ventana de Add to Playlist
+
+<p align="center">
+  <img src="./Images/Add%20to%20Playlist.png" alt="Add to Playlist" width="464" height="945">
+
+### Ventana de Create Playlist
+
+<p align="center">
+  <img src="./Images/Create%20Playlist.png" alt="Create Playlist" width="464" height="945">
+
+### Ventana de Profile Drawer
+
+<p align="center">
+  <img src="./Images/Profile%20Drawer.png" alt="Profile Drawer" width="500" height="500">
 
 
 <!-- ROADMAP -->
@@ -81,8 +122,11 @@ de datos, y `Symfony` para la creación de la API.
 - [X] Library
 - [X] Songs
 - [X] Add to Playlist
+- [X] Create Playlist
+- [X] Profile Drawer
 
-Mira los  [problemas abiertos](https://github.com/Zenin0/spafy/issues) para una lista completa de las
+Mira los  [problemas abiertos](https://github.com/Zenin0/spafy/issues) para una lista completa de
+las
 propuestas (y errores conocidos).
 
 
