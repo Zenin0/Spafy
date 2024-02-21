@@ -105,7 +105,7 @@ de datos, y `Symfony` para la creación de la API.
 ### Ventana de Profile Drawer
 
 <p align="center">
-  <img src="./Images/Profile%20Drawer.png" alt="Profile Drawer" width="500" height="945">
+  <img src="./Images/Profile%20Drawer.png" alt="Profile Drawer" width="464" height="945">
 
 
 <!-- ROADMAP -->
