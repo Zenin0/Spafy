@@ -114,11 +114,17 @@ Project Link: https://github.com/Zenin0/Spafy
 
 Check out the open issues for a full list of proposals (and known issues).
 <!-- LICENSE --> 
-License
+
+## License
 
 Distributed under the CC0 (Creative Commons Zero) license. See LICENSE for more information.
+
 <!-- CONTACT -->
-Contact
+
+## Contact
 
 Isaac - isaacsanz@proton.me
+
+Project Link: [https://github.com/Zenin0/Spafy](https://github.com/Zenin0/Spafy)
+
 
