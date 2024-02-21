@@ -14,7 +14,7 @@
     <string name="create_playlist_name">Agrega un título a tu lista de reproducción</string>
     <string name="hint_name_playlist">Nombre de la lista de reproducción</string>
     <string name="your_library">Tu biblioteca</string>
-    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+    <string name="hello_blank_fragment">Fragmento en blanco</string>
     <string name="song_tittle">Título de la canción</string>
     <string name="playlist_preview">Vista previa de la lista de reproducción</string>
     <string name="playlist_tittle">Título de la lista de reproducción</string>
@@ -28,7 +28,7 @@
     <string name="hint_birth">Fecha de nacimiento</string>
     <string name="hint_country">País</string>
     <string name="hint_zipcode">Código postal</string>
-    <string name="login_error_empty_fields">Por favor complete todos los campos</string>
+    <string name="login_error_empty_fields">Por favor, completa todos los campos</string>
     <string name="login_error_invalid_fields">Campos inválidos</string>
     <string name="add_to_playlist">Agregar a la lista de reproducción</string>
     <string name="playlist_image">Imagen de la lista de reproducción</string>
@@ -55,4 +55,9 @@
     <string name="your_lists">Tus listas</string>
     <string name="podcast_you_follow">Podcasts que sigues</string>
     <string name="albums_you_follow">Álbumes que sigues</string>
+    <string name="field_not_empty">El campo no puede estar vacío</string>
+    <string name="confirm">Confirmación</string>
+    <string name="add_to_playlist_message">¿Estás seguro de que quieres agregar esta canción?</string>
+    <string name="add_to_playlist_success">Añadida a la playlist</string>
 </resources>
+

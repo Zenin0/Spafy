@@ -36,7 +36,8 @@ class CreatePlaylistFragment : Fragment() {
         mBinding.btnCreate.setOnClickListener {
             val name = mBinding.etName.text.toString()
             if (name.isEmpty()) {
-                Toast.makeText(requireContext(), "Name field cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    getString(R.string.field_not_empty), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
