@@ -1,7 +1,6 @@
 package com.isanz.spafy.libraryModule
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.isanz.spafy.R
+import com.isanz.spafy.SpafyApplication
 import com.isanz.spafy.common.retrofit.library.LibraryService
 import com.isanz.spafy.common.retrofit.library.PostPlaylist
 import com.isanz.spafy.common.utils.Constants
@@ -22,7 +22,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CreatePlaylistFragment : Fragment() {
 
-    private var userId: Int = 0
     private lateinit var mBinding: FragmentCreatePlaylistBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,21 +30,6 @@ class CreatePlaylistFragment : Fragment() {
         mBinding = FragmentCreatePlaylistBinding.inflate(inflater, container, false)
         seUpButtons()
         return mBinding.root
-    }
-
-    companion object {
-        fun newInstance(userId: Int) = CreatePlaylistFragment().apply {
-            arguments = Bundle().apply {
-                putInt("userId", userId)
-            }
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            userId = it.getInt("userId")
-        }
     }
 
     private fun seUpButtons() {
@@ -60,10 +44,10 @@ class CreatePlaylistFragment : Fragment() {
             val homeService = retrofit.create(LibraryService::class.java)
             lifecycleScope.launch {
                 try {
-                    val response = homeService.createPlaylist(PostPlaylist(name, userId))
+                    val response = homeService.createPlaylist(PostPlaylist(name, SpafyApplication.idUsuario))
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
-                            val fragment = LibraryFragment.newInstance(userId)
+                            val fragment = LibraryFragment()
                             requireActivity().supportFragmentManager.beginTransaction()
                                 .replace(R.id.fragmentCreatePlaylist, fragment).commit()
                             requireActivity().supportFragmentManager.popBackStack()

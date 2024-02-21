@@ -1,6 +1,7 @@
 package com.isanz.spafy.libraryModule
 
 import android.content.Intent
+import android.net.wifi.WifiManager.LocalOnlyHotspotCallback
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,10 +14,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.isanz.spafy.R
+import com.isanz.spafy.SpafyApplication
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.home.HomeService
@@ -24,6 +27,7 @@ import com.isanz.spafy.common.retrofit.library.LibraryService
 import com.isanz.spafy.common.utils.Constants
 import com.isanz.spafy.common.utils.IOnItemClickListener
 import com.isanz.spafy.databinding.FragmentLibraryBinding
+import com.isanz.spafy.homeModule.HomeFragmentDirections
 import com.isanz.spafy.libraryModule.adapter.LibraryPlaylistAdapter
 import com.isanz.spafy.libraryModule.songs.SongsFragment
 import com.isanz.spafy.loginModule.LoginActivity
@@ -36,7 +40,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class LibraryFragment : Fragment(), IOnItemClickListener {
 
-    private var userId: Int = 0
     private lateinit var mBinding: FragmentLibraryBinding
     private lateinit var libraryPlaylistAdapter: LibraryPlaylistAdapter
     private var playlists: List<PlayList> = listOf()
@@ -62,22 +65,6 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
         setUpNavDaw()
     }
 
-
-    companion object {
-        fun newInstance(userId: Int) = LibraryFragment().apply {
-            arguments = Bundle().apply {
-                putInt("userId", userId)
-            }
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            userId = it.getInt("userId")
-        }
-    }
-
     private fun setUpNavDaw() {
 
         val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
@@ -85,7 +72,7 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
         val libraryService = retrofit.create(LibraryService::class.java)
         lifecycleScope.launch {
             try {
-                val response = libraryService.getUser(userId)
+                val response = libraryService.getUser(SpafyApplication.idUsuario)
                 val user = response.body()
                 val headerView = mBinding.navView.getHeaderView(0)
                 val tvUsername = headerView.findViewById<TextView>(R.id.tvUsername)
@@ -166,7 +153,7 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserPlaylists(userId)
+                val response = homeService.getUserPlaylists(SpafyApplication.idUsuario)
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -228,11 +215,9 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
 
     private fun setUpButtons() {
         mBinding.fabCreatePlaylist.setOnClickListener {
-            val createPlaylistFragment = CreatePlaylistFragment.newInstance(userId)
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.drawer_layout, createPlaylistFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            findNavController().navigate(
+                LibraryFragmentDirections.actionNavigationLibraryToCreatePlaylistFragment()
+            )
 
         }
         mBinding.menu.setOnClickListener {
@@ -249,11 +234,9 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
 
 
     override fun onItemClick(playlist: PlayList) {
-        val songsFragment = SongsFragment.newInstance(playlist.id)
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.drawer_layout, songsFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        findNavController().navigate(
+            LibraryFragmentDirections.actionNavigationLibraryToSongsFragment(playlist.id)
+        )
     }
 
     override fun onLongItemClick(playlist: PlayList) {

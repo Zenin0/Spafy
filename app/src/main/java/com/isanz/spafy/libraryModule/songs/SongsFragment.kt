@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SongsFragment : Fragment(), IOnItemClickListener {
 
     private lateinit var mBinding: FragmentSongsBinding
-    private var userId: Int = 0
+    private var playlistId: Int = 0
     private lateinit var playlist: PlayList
 
     override fun onCreateView(
@@ -38,24 +38,9 @@ class SongsFragment : Fragment(), IOnItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentSongsBinding.inflate(inflater, container, false)
+        playlistId = arguments?.getInt("playlistId") ?: 0
         setUpRecyclerView()
         return mBinding.root
-
-    }
-
-    companion object {
-        fun newInstance(userId: Int) = SongsFragment().apply {
-            arguments = Bundle().apply {
-                putInt("userId", userId)
-            }
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            userId = it.getInt("userId")
-        }
     }
 
     private fun setUpRecyclerView() {
@@ -91,7 +76,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = searchService.getCancionesPlaylist(userId)
+                val response = searchService.getCancionesPlaylist(playlistId)
                 val result = response.body() ?: emptyList()
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful && result.isNotEmpty()) {
@@ -170,7 +155,7 @@ class SongsFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = searchService.getPlaylist(userId)
+                val response = searchService.getPlaylist(playlistId)
                 val result = response.body()
                 withContext(Dispatchers.Main) {
                     if (result != null) {

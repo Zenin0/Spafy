@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isanz.spafy.R
+import com.isanz.spafy.SpafyApplication
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.home.HomeService
@@ -29,7 +31,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class HomeFragment : Fragment(), IOnItemClickListener {
 
     private lateinit var mBinding: FragmentHomeBinding
-    private var userId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -37,21 +38,6 @@ class HomeFragment : Fragment(), IOnItemClickListener {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false)
         setupRecyclerView()
         return mBinding.root
-    }
-
-    companion object {
-        fun newInstance(userId: Int) = HomeFragment().apply {
-            arguments = Bundle().apply {
-                putInt("userId", userId)
-            }
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            userId = it.getInt("userId")
-        }
     }
 
     private fun setupRecyclerView() {
@@ -90,7 +76,7 @@ class HomeFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserAlbums(userId)
+                val response = homeService.getUserAlbums(SpafyApplication.idUsuario)
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -158,7 +144,7 @@ class HomeFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserPlaylists(userId)
+                val response = homeService.getUserPlaylists(SpafyApplication.idUsuario)
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -226,7 +212,7 @@ class HomeFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserPodcast(userId)
+                val response = homeService.getUserPodcast(SpafyApplication.idUsuario)
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -288,11 +274,9 @@ class HomeFragment : Fragment(), IOnItemClickListener {
     }
 
     override fun onItemClick(playlist: PlayList) {
-        val songsFragment = SongsFragment.newInstance(playlist.id)
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_home, songsFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        findNavController().navigate(
+            HomeFragmentDirections.actionNavigationHomeToSongsFragment(playlist.id)
+        )
     }
 
     override fun onLongItemClick(playlist: PlayList) {

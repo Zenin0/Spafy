@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.isanz.spafy.MainActivity
 import com.isanz.spafy.R
+import com.isanz.spafy.SpafyApplication
 import com.isanz.spafy.common.retrofit.login.LoginService
 import com.isanz.spafy.common.retrofit.login.UserLoginInfo
 import com.isanz.spafy.common.retrofit.login.UserRegisterInfo
@@ -206,7 +207,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun goToMain(userId: Int) {
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("userId", userId)
+        SpafyApplication.idUsuario = userId
         startActivity(intent)
     }
 }

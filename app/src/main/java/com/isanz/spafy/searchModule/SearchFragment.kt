@@ -8,14 +8,17 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isanz.spafy.R
+import com.isanz.spafy.SpafyApplication
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.search.SearchService
 import com.isanz.spafy.common.utils.Constants
 import com.isanz.spafy.common.utils.IOnItemClickListener
 import com.isanz.spafy.databinding.FragmentSearchBinding
+import com.isanz.spafy.libraryModule.LibraryFragmentDirections
 import com.isanz.spafy.searchModule.adapter.SearchListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,7 +31,6 @@ class SearchFragment : Fragment(), IOnItemClickListener {
     private lateinit var mBinding: FragmentSearchBinding
     private lateinit var searchListAdapter: SearchListAdapter
     private var canciones: List<Cancion> = listOf()
-    private var idUsuario: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,28 +43,11 @@ class SearchFragment : Fragment(), IOnItemClickListener {
         return mBinding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            idUsuario = it.getInt("userId")
-        }
-    }
-
-    companion object {
-        fun newInstance(id: Int) = SearchFragment().apply {
-            arguments = Bundle().apply {
-                putInt("userId", id)
-            }
-        }
-    }
-
 
     override fun onItemClick(cancion: Cancion) {
-        val addPlaylist = AddToPlaylistFragment.newInstance(cancion.id, idUsuario)
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, addPlaylist)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        findNavController().navigate(
+            SearchFragmentDirections.actionNavigationSearchToAddToPlaylistFragment(cancion.id)
+        )
     }
 
     override fun onItemClick(playlist: PlayList) {
