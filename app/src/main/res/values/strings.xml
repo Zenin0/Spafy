@@ -55,4 +55,8 @@
     <string name="your_lists">Your lists</string>
     <string name="podcast_you_follow">Podcast you follow</string>
     <string name="albums_you_follow">Albums you follow</string>
+    <string name="field_not_empty">Field cannot be empty</string>
+    <string name="confirm">Confirmation</string>
+    <string name="add_to_playlist_message">Are you sure you want to add this song?</string>
+    <string name="add_to_playlist_success">Added to playlist</string>
 </resources>

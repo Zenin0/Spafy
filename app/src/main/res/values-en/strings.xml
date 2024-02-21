@@ -42,7 +42,7 @@
     <string name="album">Album</string>
     <string name="podcast">Podcast</string>
     <string name="desc">Description</string>
-    <string name="no_songs">Any songs found</string>
+    <string name="no_songs">No songs found</string>
     <string name="request_error">Request Error</string>
     <string name="server_error">Error on the server</string>
     <string name="unknown_error">Unknown error</string>
@@ -55,4 +55,8 @@
     <string name="your_lists">Your lists</string>
     <string name="podcast_you_follow">Podcast you follow</string>
     <string name="albums_you_follow">Albums you follow</string>
+    <string name="field_not_empty">Field cannot be empty</string>
+    <string name="confirm">Confirmation</string>
+    <string name="add_to_playlist_message">Are you sure you want to add this song?</string>
+    <string name="add_to_playlist_success">Added to playlist</string>
 </resources>

@@ -20,7 +20,6 @@ import com.isanz.spafy.databinding.FragmentHomeBinding
 import com.isanz.spafy.homeModule.adapter.HomeAlbumAdapter
 import com.isanz.spafy.homeModule.adapter.HomePlaylistAdapter
 import com.isanz.spafy.homeModule.adapter.HomePodcastAdapter
-import com.isanz.spafy.libraryModule.songs.SongsFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -148,7 +147,7 @@ class HomeFragment : Fragment(), IOnItemClickListener {
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
-                val result = response.body()?: listOf()
+                val result = response.body() ?: listOf()
                 result.forEach {
                     it.titulo = it.titulo.replace("_", " ").replaceFirstChar { char ->
                         if (char.isLowerCase()) char.titlecase(

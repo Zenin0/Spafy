@@ -6,12 +6,12 @@
     <string name="bad_credentials">Identifiants incorrects</string>
     <string name="error_login">Erreur de connexion</string>
     <string name="main_type_register">S\'inscrire</string>
-    <string name="main_error_server">Erreur de serveur</string>
+    <string name="main_error_server">Erreur du serveur</string>
     <string name="login_error_unauthorized">Identifiants incorrects</string>
     <string name="home">Accueil</string>
-    <string name="search">Rechercher</string>
+    <string name="search">Recherche</string>
     <string name="create">Créer</string>
-    <string name="create_playlist_name">Ajoutez un titre à votre playlist</string>
+    <string name="create_playlist_name">Ajouter un titre à votre playlist</string>
     <string name="hint_name_playlist">Nom de la playlist</string>
     <string name="your_library">Votre bibliothèque</string>
     <string name="hello_blank_fragment">Bonjour fragment vide</string>
@@ -19,7 +19,7 @@
     <string name="playlist_preview">Aperçu de la playlist</string>
     <string name="playlist_tittle">Titre de la playlist</string>
     <string name="icon_image">Image d\'icône</string>
-    <string name="login_error_bad_request">Erreur de connexion : Requête incorrecte</string>
+    <string name="login_error_bad_request">Erreur de connexion : Mauvaise requête</string>
     <string name="login_error_generic">Erreur de connexion : Erreur du serveur</string>
     <string name="canciones">Chansons</string>
     <string name="hint_username">Nom d\'utilisateur</string>
@@ -35,10 +35,10 @@
     <string name="num_canciones">0</string>
     <string name="playlist_name">Nom de la playlist</string>
     <string name="create_playlist">Créer une playlist</string>
-    <string name="go_back">Retour</string>
+    <string name="go_back">Revenir</string>
     <string name="logout">Déconnexion</string>
     <string name="close_account">Fermer le compte</string>
-    <string name="playlist">Liste</string>
+    <string name="playlist">Liste de lecture</string>
     <string name="album">Album</string>
     <string name="podcast">Podcast</string>
     <string name="desc">Description</string>
@@ -55,4 +55,8 @@
     <string name="your_lists">Vos listes</string>
     <string name="podcast_you_follow">Podcasts que vous suivez</string>
     <string name="albums_you_follow">Albums que vous suivez</string>
+    <string name="field_not_empty">Le champ ne peut pas être vide</string>
+    <string name="confirm">Confirmation</string>
+    <string name="add_to_playlist_message">Êtes-vous sûr de vouloir ajouter cette chanson ?</string>
+    <string name="add_to_playlist_success">Ajouté à la playlist</string>
 </resources>

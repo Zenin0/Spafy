@@ -1,7 +1,6 @@
 package com.isanz.spafy.searchModule
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.isanz.spafy.R
 import com.isanz.spafy.SpafyApplication
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
@@ -59,8 +59,8 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
 
     override fun onItemClick(playlist: PlayList) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Confirmacion")
-            .setMessage("Seguro que quieres añadir la cancion a la playlisy?")
+            .setTitle(getString(R.string.confirm))
+            .setMessage(getString(R.string.add_to_playlist_message))
             .setNegativeButton("No") { dialog, _ ->
                 dialog.dismiss()
             }
@@ -82,7 +82,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Canción añadida a la playlist",
+                                    getString(R.string.add_to_playlist_success),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -94,17 +94,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                                     withContext(Dispatchers.Main) {
                                         Toast.makeText(
                                             requireContext(),
-                                            "Error en la petición",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-
-                                404 -> {
-                                    withContext(Dispatchers.Main) {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "No se encontraron playlists",
+                                            getString(R.string.request_error),
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
@@ -114,7 +104,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                                     withContext(Dispatchers.Main) {
                                         Toast.makeText(
                                             requireContext(),
-                                            "Error en el servidor",
+                                            getString(R.string.server_error),
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
@@ -124,7 +114,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                                     withContext(Dispatchers.Main) {
                                         Toast.makeText(
                                             requireContext(),
-                                            "Error desconocido",
+                                            getString(R.string.unknown_error),
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
@@ -166,7 +156,8 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserPlaylists(SpafyApplication.idUsuario) // Replace id with idUsuario
+                val response =
+                    homeService.getUserPlaylists(SpafyApplication.idUsuario) // Replace id with idUsuario
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
@@ -189,18 +180,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en la petición",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                mBinding.progressBar.visibility = View.GONE
-                            }
-                        }
-
-                        404 -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "No se encontraron playlists",
+                                    getString(R.string.request_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -211,7 +191,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error en el servidor",
+                                    getString(R.string.server_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
@@ -222,7 +202,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Error desconocido",
+                                    getString(R.string.unknown_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 mBinding.progressBar.visibility = View.GONE
