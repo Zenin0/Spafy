@@ -229,6 +229,20 @@ class LibraryFragment : Fragment(), IOnItemClickListener {
             requireActivity().finish()
             true
         }
+        mBinding.navView.menu.findItem(R.id.navigation_home).setOnMenuItemClickListener {
+            findNavController().navigate(
+                LibraryFragmentDirections.actionLibraryFragmentToHomeFragment()
+            )
+            true
+        }
+        mBinding.navView.menu.findItem(R.id.navigation_search).setOnMenuItemClickListener {
+            findNavController().navigate(
+                LibraryFragmentDirections.actionLibraryFragmentToSearchFragment()
+            )
+            true
+        }
+
+
 
     }
 

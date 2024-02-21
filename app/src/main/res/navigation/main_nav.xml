@@ -20,8 +20,7 @@
             app:destination="@id/navigation_songs">
             <argument
                 android:name="playlistId"
-                app:argType="integer"
-                android:defaultValue="0"/>
+                app:argType="integer"/>
         </action>
     </fragment>
     <fragment
@@ -40,8 +39,7 @@
             app:destination="@id/addToPlaylistFragment">
             <argument
                 android:name="songId"
-                app:argType="integer"
-                android:defaultValue="0"/>
+                app:argType="integer"/>
         </action>
     </fragment>
     <fragment
@@ -59,8 +57,7 @@
             app:destination="@id/navigation_songs">
             <argument
                 android:name="playlistId"
-                app:argType="integer"
-                android:defaultValue="0"/>
+                app:argType="integer"/>
         </action>
         <action
             android:id="@+id/action_navigation_library_to_createPlaylistFragment"
