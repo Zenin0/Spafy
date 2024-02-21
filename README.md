@@ -74,9 +74,13 @@ de datos, y `Symfony` para la creación de la API.
 - [X] Crear el proyecto
 - [X] Crear la base de datos
 - [X] Crear la API
-- [X] Crear la ventana de login
-- [ ] Crear la ventana de registro
-- [X] Crear la ventana principal
+- [X] Login
+- [X] Register
+- [X] Home
+- [X] Search
+- [X] Library
+- [X] Songs
+- [X] Add to Playlist
 
 Mira los  [problemas abiertos](https://github.com/Zenin0/spafy/issues) para una lista completa de las
 propuestas (y errores conocidos).
