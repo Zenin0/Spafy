@@ -59,4 +59,5 @@
     <string name="confirm">Confirmation</string>
     <string name="add_to_playlist_message">Are you sure you want to add this song?</string>
     <string name="add_to_playlist_success">Added to playlist</string>
+    <string name="menu">Menu</string>
 </resources>

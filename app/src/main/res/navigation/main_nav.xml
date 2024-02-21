@@ -17,11 +17,7 @@
             app:destination="@id/navigation_library" />
         <action
             android:id="@+id/action_navigation_home_to_songsFragment"
-            app:destination="@id/navigation_songs">
-            <argument
-                android:name="playlistId"
-                app:argType="integer"/>
-        </action>
+            app:destination="@id/navigation_songs"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_search"
@@ -36,11 +32,7 @@
             app:destination="@id/navigation_home" />
         <action
             android:id="@+id/action_navigation_search_to_addToPlaylistFragment"
-            app:destination="@id/addToPlaylistFragment">
-            <argument
-                android:name="songId"
-                app:argType="integer"/>
-        </action>
+            app:destination="@id/addToPlaylistFragment"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_library"
@@ -54,11 +46,7 @@
             app:destination="@id/navigation_search" />
         <action
             android:id="@+id/action_navigation_library_to_songsFragment"
-            app:destination="@id/navigation_songs">
-            <argument
-                android:name="playlistId"
-                app:argType="integer"/>
-        </action>
+            app:destination="@id/navigation_songs"/>
         <action
             android:id="@+id/action_navigation_library_to_createPlaylistFragment"
             app:destination="@id/createPlaylistFragment"/>
@@ -67,12 +55,20 @@
         android:id="@+id/navigation_songs"
         android:name="com.isanz.spafy.libraryModule.songs.SongsFragment"
         android:label="fragment_songs"
-        tools:layout="@layout/fragment_songs" />
+        tools:layout="@layout/fragment_songs">
+        <argument
+            android:name="playlistId"
+            app:argType="integer"/>
+    </fragment>
     <fragment
         android:id="@+id/addToPlaylistFragment"
         android:name="com.isanz.spafy.searchModule.AddToPlaylistFragment"
         android:label="fragment_add_to_playlist"
-        tools:layout="@layout/fragment_add_to_playlist" />
+        tools:layout="@layout/fragment_add_to_playlist">
+        <argument
+            android:name="songId"
+            app:argType="integer"/>
+    </fragment>
     <fragment
         android:id="@+id/createPlaylistFragment"
         android:name="com.isanz.spafy.libraryModule.CreatePlaylistFragment"

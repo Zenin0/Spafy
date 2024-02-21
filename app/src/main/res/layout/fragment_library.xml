@@ -21,7 +21,8 @@
             android:layout_margin="@dimen/common_padding_default"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_menu" />
+            app:srcCompat="@drawable/ic_menu"
+            android:contentDescription="@string/menu" />
 
 
         <TextView
