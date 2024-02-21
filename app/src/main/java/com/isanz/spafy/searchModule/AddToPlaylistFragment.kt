@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.isanz.spafy.SpafyApplication
 import com.isanz.spafy.common.entities.Cancion
 import com.isanz.spafy.common.entities.PlayList
 import com.isanz.spafy.common.retrofit.home.HomeService
@@ -32,7 +33,6 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
     private lateinit var homePlaylistAdapter: HomePlaylistAdapter
 
     private var idCancion: Int = 0
-    private var idUsuario: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +43,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
         homePlaylistAdapter = HomePlaylistAdapter(requireContext(), this)
         setupRecyclerView()
         setUpButtons()
+        idCancion = arguments?.getInt("songId") ?: 0
         return mBinding.root
     }
 
@@ -54,24 +55,6 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
 
     private fun onBackPressed() = View.OnClickListener {
         requireActivity().supportFragmentManager.popBackStack()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            idCancion = it.getInt("cancionId")
-            idUsuario = it.getInt("userId")
-
-        }
-    }
-
-    companion object {
-        fun newInstance(idCancion: Int, idUsuario: Int) = AddToPlaylistFragment().apply {
-            arguments = Bundle().apply {
-                putInt("cancionId", idCancion)
-                putInt("userId", idUsuario)
-            }
-        }
     }
 
     override fun onItemClick(playlist: PlayList) {
@@ -93,7 +76,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
                             searchService.addSongToPlaylist(
                                 playlist.id,
                                 idCancion,
-                                idUsuario
+                                SpafyApplication.idUsuario
                             )
                         if (response.isSuccessful) {
                             withContext(Dispatchers.Main) {
@@ -183,7 +166,7 @@ class AddToPlaylistFragment : Fragment(), IOnItemClickListener {
 
         lifecycleScope.launch {
             try {
-                val response = homeService.getUserPlaylists(idUsuario) // Replace id with idUsuario
+                val response = homeService.getUserPlaylists(SpafyApplication.idUsuario) // Replace id with idUsuario
                 withContext(Dispatchers.Main) {
                     mBinding.progressBar.visibility = View.GONE
                 }
