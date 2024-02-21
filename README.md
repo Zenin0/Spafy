@@ -65,7 +65,7 @@ de datos, y `Symfony` para la creación de la API.
 ### Ventana de Registro
 
 <p align="center">
-  <img src="./Images/Register.png" alt="Register" width="500" height="500">
+  <img src="./Images/Register.png" alt="Register" width="500" height="945">
 
 ### Ventana de Login
 
